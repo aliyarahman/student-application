@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Recommendation - Code for Progress</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	
+<body>
+	<div id="banner">
+		<a href="{{ url_for('reclogout') }}"><button class="navbutton">Log out</button>
+		<a href="{{ url_for('rechelp') }}"><button class="navbutton">Get help</button></a>
+		<a href="{{ url_for('recindex') }}"><button class="navbutton">My recommendations</button></a>
+	</div>
+	<hr>
+
+	{% block content %} {% endblock %}
+</body>
+</html>

@@ -1,0 +1,34 @@
+{% extends "recbase.html" %}
+{% block content %}
+
+	<span id="flash">
+	{% with messages = get_flashed_messages() %}{% if messages %}{% for message in messages %}
+	<br>>>> {{ message }}<br>
+	{% endfor %}{% endif %}{% endwith %}</span>
+
+
+	<div id="header">Your Code for Progress recommendations <p>These applicants have named you as a recommendation provider, using your <b>person@acme.org</b> email address.</p><p>Please select an applicant to get started.</p></div>
+		<div id="recbuttonholder">
+		
+			<a href="{{ url_for('recform') }}"><button type="button" class="applicantbutton">
+			<span class="applicantname">Francesca Sutton</span>
+			<span class="recdetails">Start this recommendation.</span></button></a>
+
+			<a href="{{ url_for('recform') }}"><button type="button" class="applicantbutton">
+			<span class="applicantname">Cleo Sims</span>
+			<span class="recdetails">Start this recommendation.</span></button></a>		
+		
+			<a href="{{ url_for('recform') }}"><button type="button" class="applicantbutton">
+			<span class="applicantname">Stoney Newsome</span>
+			<span class="recdetails">Start this recommendation.</span></button></a>
+
+			<a href="{{ url_for('recform') }}"><button type="button" class="applicantbutton">
+			<span class="applicantname">T.T. Williams</span>
+			<span class="recdetails">Start this recommendation.</span></button></a>
+		
+		
+		</div>
+		
+		<a href="{{ url_for('finalrecsubmission') }}"><button type="button" class="advance">Check for missing info and submit my recommendations.</button></a>
+
+{% endblock %}

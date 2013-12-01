@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<div class="contentholder">
+		<div class="formheader"><h2>Update your profile.</h2>
+ 
+		{%if form.errors %}
+		<br><p style="color:red">Looks like there were some mistakes on your form:<br>
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+            {% for error in field_errors %}
+                <br><span style="margin-left:15px">- {{ error }}
+            {% endfor %}
+        {% endfor %}
+		</p>
+		{% endif %}	
+		</div>
+
+		<form action="" method="post" name="profile">
+			{{form.hidden_tag()}}
+
+				<div class="textfield_container">
+					<section class="col1">
+						<p><label for="firstname">First name</label>{{form.firstname}}</p>
+						<p><label for="lastname">Last name</label>{{form.lastname}}</p>
+						<p><label for="email">Email</label>{{form.email}}</p>
+						<p><label for="password">Password</label>{{form.password}}</p>
+						<p><label for="retypepassword">Retype password</label>{{form.retypepassword}}</p>
+					</section>
+					
+					<section class="col2">
+						<p><label for="phone">Phone</label>{{form.phone}}</p>
+						<p><label for="address">Address</label>{{form.address}}</p>
+						<p><label for="city">City</label>{{form.city}}</p>
+						<p><label for="state">State</label>{{form.state}}</p>
+						<p><label for="zipcode">Zip</label>{{form.zipcode}}</p>
+					</section>
+
+				</div>
+
+				<label for="languages">What languages do you speak, and how well do you speak them?</label><p>{{form.languages}}</p>
+				<label for="culturalgroups">Our mission statement says that we want to train coders from communities "historically excluded" from the tech industry. Are you part of any of these communities, and if so what are they?</label><p>{{form.culturalgroups}}</p>
+				<label for="working">Are you working right now (that could be a job, more than one job, or being a caretaker for someone)? If so, tell us about it.</label><p>{{form.working}}</p>
+				<button type="submit" class="advance"><span id="finished">FINISHED?</span>Click here to save your changes.</button>
+		</form>
+	</div>
+										
+{% endblock %}

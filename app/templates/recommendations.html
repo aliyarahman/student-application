@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+	
+	<div class="contentholder">
+		<div class="formheader"><h2>Let other people tell us about you.</h2></div>
+			<p>We'd like to hear from three people who know you – either at home, at work, or in your community. Try to pick people who know you in different parts of your life, and who know about your passions and your skills. You'll also need to check with them first to see if they are willing to write us an email about you.</p>
+			<p>If you give us their name, email address, and phone number, we'll send them some questions about you and let them know how to get us the answers. We may also call them.</p>
+			<p>After that, you'll just need to check with them to see if they got our email and filled out their recommendations.</p>
+	
+		{%if form.errors %}
+		<br><p style="color:red">Looks like something's missing from your form:<br>
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+            {% for error in field_errors %}
+                <br><span style="margin-left:15px">- We'd like to know {{ error }}!</span>
+            {% endfor %}
+        {% endfor %}
+		</p>
+		{% endif %}
+	
+
+		<form action="" method="post" name="recommendations">
+			{{form.hidden_tag()}}
+				<div class="recommenderbox">
+					<span class="formheader"><h3>Recommendation 1</h3></span>
+					<div class="col1">
+						<p><label for="firstname">First name</label><input type="text" id="firstname"></p>
+						<p><label for="lastname">Last name</label><input type="text" id="lastname"></p>
+						<p><label for="email">Email</label><input type="email" id="email"></p>
+						<p><label for="phone">Phone</label><input type="text" id="phone"></p>
+					</div>		
+					<div class="recommender_shortanswer">
+						<label>How do you know this person?</label><p><textarea maxlength="310"></textarea></p>
+					</div>
+				</div>
+
+
+				<div class="recommenderbox">
+					<span class="formheader"><h3>Recommendation 2</h3></span>
+					<div class="col1">
+						<p><label for="firstname">First name</label><input type="text" id="firstname"></p>
+						<p><label for="lastname">Last name</label><input type="text" id="lastname"></p>
+						<p><label for="email">Email</label><input type="email" id="email"></p>
+						<p><label for="phone">Phone</label><input type="text" id="phone"></p>
+					</div>		
+					<div class="recommender_shortanswer">
+						<label>How do you know this person?</label><p><textarea maxlength="310"></textarea></p>
+					</div>
+				</div>
+
+
+				<div class="recommenderbox">
+					<span class="formheader"><h3>Recommendation 3</h3></span>
+					<div class="col1">
+						<p><label for="firstname">First name</label><input type="text" id="firstname"></p>
+						<p><label for="lastname">Last name</label><input type="text" id="lastname"></p>
+						<p><label for="email">Email</label><input type="email" id="email"></p>
+						<p><label for="phone">Phone</label><input type="text" id="phone"></p>
+					</div>		
+					<div class="recommender_shortanswer">
+						<label>How do you know this person?</label><p><textarea maxlength="310"></textarea></p>
+					</div>
+				</div>
+
+				<button type="submit" class="advance"><span id="finished">FINISHED?</span>Click here to see if anything's missing.</button>
+
+	</form>
+
+{% endblock %}

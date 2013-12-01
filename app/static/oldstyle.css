@@ -1,0 +1,432 @@
+html {overflow-y: scroll;}
+
+li {
+        list-style:none;
+        padding-top: 10px;
+        padding-bottom: 10px;        
+        }
+
+.bulleted li {
+        padding-top: 30px; list-style: square;
+}
+                
+div {
+        font: normal 18px Verdana, Tahoma, sans-serif;
+        padding: 60px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+        }
+
+a {
+        text-decoration: none;
+        color: black;
+        overflow: hidden;
+}
+
+textarea, input {
+        padding: 9px;
+        border: solid 1px #E5E5E5;
+        outline: 0;
+        font: normal 18px Verdana, Tahoma, sans-serif;
+        background: #FFFFFF url('bg_form.png') left top repeat-x;
+        background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
+        background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
+        box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+        -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+        -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+        }
+
+input[type="radio"] {
+        margin-right: 50px;
+}
+
+textarea {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+        width: 100%;
+        height: 130px;
+        line-height: 150%;
+        resize: none;
+        overflow: hidden;
+        }
+
+#dropsection {margin-left: 30px;}
+
+.details {
+	color: white;
+}
+
+.needspace {
+        margin-top: 60px;
+}
+
+.recommenderbox {margin-left: auto; margin-right: auto; width: 930px; padding: 20px;}
+
+.techquestions {
+        width: 750px;
+        margin-bottom: 40px;
+        padding:20px;
+        padding-top:0px;}
+        
+.techquestions p {margin-bottom: 3px;}
+
+.recquestions {
+        width: 900px;
+        margin-bottom: 40px;
+        padding:20px;
+        padding-top:0px;
+        background-color: #dadae6;
+        }
+
+.recquestions p {margin-top: 10px; margin-bottom:0px; margin-left: 0px;}
+
+.recquestions textarea {width: 800px; margin-top: 10px; margin-bottom: 10px;}
+
+.recquestions li {outline: dotted white; margin-bottom: 25px; margin-right: 15px; margin-left: 0px; padding-left: 5px;}
+  
+#buttonholder{margin-right: auto; margin-left: auto; width: 1050px; height: 300px; padding-top: 20px;}
+
+.componentbutton {
+   display: inline-block;
+   margin-left: auto;
+   margin-right: auto;
+   padding-top: 50px;
+   width: 250px;
+   height: 80px;
+   border-top: 1px solid #D2D6D6;
+   background: #D2D6D6;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   color: #000000;
+   font: normal 24px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+   text-align: center;
+   vertical-align: top;
+   -webkit-transition: All 0.5s ease;
+        -moz-transition: All 0.5s ease;
+        -o-transition: All 0.5s ease;
+        -ms-transition: All 0.5s ease;
+        transition: All 0.5s ease;
+   }
+   
+.componentbutton:hover {
+   border-top-color: #9ca7a9;
+   background: #9ca7a9;
+   color: #000000;
+   height: 300px;
+   }
+
+#finalize {
+   margin-left: auto;
+   margin-right: 0px;
+   width: 620px;
+   padding: 5px;
+   height: 30px;
+   border-top: 1px solid #e1e6da;
+   background: #e1e6da;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   color: #000000;
+   font: normal 18px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+   text-align: center;
+   line-height: 30px;
+   }
+   
+#finalize:hover {
+   border-top-color: #9fad8b;
+   background: #90A328;
+   color: #000000;
+   }
+
+#alignable {
+        background-color: #e1e6da;
+        width: 1000px;
+        height: 275px;
+        padding-top: 20px;
+        }
+
+#alignable label, .recommenderinfo label {
+        clear: left;
+        float: left;
+        width: 120px;
+        text-align: left;
+        padding-top: 7px;
+}
+
+
+.recommenderinfo {
+        display: inline-block;
+        background-color: #e1e6da;
+        width: 400px;
+        padding: 20px;
+        }
+                
+.recommender_shortanswer {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: -6px;
+        width: 370px;
+        padding-top: 65px;
+        padding-bottom: 10px;
+        background-color: #e1e6da;}
+
+.recommender_shortanswer textarea {margin-top: 10px; margin-bottom: 30px; height: 170px;}
+
+#header {
+                font: normal 24px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+                padding-top: 100px; padding-bottom: 20px;
+                }
+                
+#header p {font: normal 18px Verdana, Tahoma, sans-serif;}
+
+#indexheader {
+                font: normal 24px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+                padding-top: 50px; padding-bottom: 20px;
+                }
+                
+#indexheader p {font: normal 18px Verdana, Tahoma, sans-serif;}
+
+#basics, .shortanswers {
+                background-color: #e1e6da;
+                }
+
+#systems, .rec2 {
+                background-color: #D2D6D6;
+                }
+
+#programdetails {padding: 20px; padding-top: 5px; background-color: #E1E2E2}
+
+.shortanswers {width:1000px; padding-top: 20px;}
+                
+
+
+#submit {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font: normal 18px Verdana, Tahoma, sans-serif;
+        color: #FFFFFF;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        }
+        
+.navbutton {
+        display: inline-block;
+        float: right;
+        color: white;
+        border: 0px;
+        margin-right: 10px;
+        background-color: black;        
+        height: 40px;
+        text-align: right;
+}
+
+.navbutton:hover {
+        background-color: #90A328;
+}
+ 
+#banner {
+    position:fixed;
+    top:0;
+    width:100%;
+    padding: 0;
+    z-index:100;
+    display: float;
+    float: top;
+    height: 40px;
+    background: black;
+    }
+
+.recommenderlabel {
+                margin-bottom: 40px;
+                 font: normal 24px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;}
+
+#loginbox {
+        padding-top: 20px;
+        margin-top: 20px;
+        width: 520px;
+        height: 280px;
+        background: #e1e6da;
+        font: normal 18px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;}
+        }
+        
+#username, #password {
+        font: normal 18px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+        }
+
+.loginbutton {
+        margin-top: 20px;
+        display: inline-block;
+        height: 50px;
+        width: 250px;
+        font: normal 18px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;}
+}
+
+.recbutton {margin-left: 100px;}
+
+.techquestions li {outline: dotted white; padding-left: 20px; padding-bottom: 1px; padding-top: 1px; margin-bottom: 30px;}
+.techquestions ul {padding-left: 10px; padding-right: 10px;}
+
+#forgot {margin-top: 15px; font: normal 14px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace; text-align: center;}
+
+.slidingDiv {
+padding: 0px;
+margin:0px;
+width: 750px;
+}
+ 
+.show_hide {
+    display:none;
+}
+
+.slidingDiv2 {
+padding: 0px;
+margin:0px;
+width: 750px;
+}
+ 
+.show_hide2 {
+    display:none;
+}
+
+
+.start {
+   margin-left: auto;
+   margin-right: 0px;
+   width: 620px;
+   padding: 5px;
+   height: 30px;
+   border-top: 1px solid #e1e6da;
+   background: white;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   color: #000000;
+   font: normal 18px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+   text-align: center;
+   line-height: 30px;
+}
+
+.start:hover {
+   border-top-color: #9fad8b;
+   background: #90A328;
+   color: #000000;
+   }
+   
+#problem li {
+        list-style: square;
+}
+
+.separatesubmit {
+        display: inline-block;
+        background-color: #dadae6;
+        width: 910px;
+        padding: 10px;
+        margin-top: 20px;
+        }
+        
+.advance {
+   float: right;
+   margin-right: -10px;
+   margin-top: 10px;
+   width: 650px;
+   padding: 5px;
+   height: 50px;
+   border-top: 1px solid #e1e6da;
+   background: #e1e6da;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   color: #000000;
+   font: normal 18px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+   text-align: center;
+   line-height: 30px;
+   }
+   
+.advance:hover {
+   border-top-color: #9fad8b;
+   background: #90A328;
+   color: #000000;
+   }
+
+#recommenderbox {
+        margin-top: 20px;
+        padding-top: 20px;
+        width: 520px;
+        height: 250px;
+        background: #D2D6D6;
+        font: normal 18px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;}
+
+#recbutton {
+        margin-left: 100px;
+        margin-top: 20px;
+        height: 50px;
+        width: 250px;
+        font: normal 18px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;}
+
+#recbuttonholder{margin: 50px auto 50px auto; line-height: 50px; padding-top: 0px;}
+
+.applicantbutton {
+   display: inline-block;
+   margin-left: 100px;
+   padding: 4px;
+   padding-left: 10px;
+   display: inline-block;
+   height: 40px;
+   width: 650px;
+   text-align: left;
+   vertical-align: top;
+   border-top: 1px solid #D2D6D6;
+   background: #D2D6D6;
+   color: #000000;
+   overflow: hidden;
+   font: normal 24px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -webkit-transition: All 0.5s ease;
+        -moz-transition: All 0.5s ease;
+        -o-transition: All 0.5s ease;
+        -ms-transition: All 0.5s ease;
+        transition: All 0.5s ease;
+   }
+   
+.applicantbutton:hover {
+   border-top-color: #9ca7a9;
+   background: #9ca7a9;
+   color: #000000;
+   width: 900px;
+   }
+
+.recdetails {
+	color: white;
+	float: right;
+	text-align: right;
+	width: 600px;
+	
+}
+
+#coding, .rec3, #submit {
+    background-color: #dadae6;
+    }
+    
+#thirdrec , {background-color: #dadae6;
+}
+
+section.col1 {display: inline-block;
+margin-right: 150px;}
+
+section.col2 {display:inline-block;}
+
+#flash {color: #90A328; font: normal 30px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace; margin-left: 10px;}
+
+.loginerror {
+			font: normal 18px Verdana, Tahoma, sans-serif;
+			color: red;
+            margin-left: auto; margin-right: auto; width: 600px; padding: 20px;
+            }
+
+
+#recommenderbox input, #loginbox input {margin-top: 5px;}

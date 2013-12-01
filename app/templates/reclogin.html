@@ -1,0 +1,33 @@
+{% extends "recbanner.html" %}
+{% block content %}
+
+	<div id="header">Log in to provide your Code for Progress recommendation</div>
+
+	<br><br><div id="recommenderbox">
+			<form action="" method="post" name="login">
+				{{form.hidden_tag()}}
+				<p><label for="username" id="username">Username (this is your email address)</label>
+				<br>{{form.username(size=30)}}</p>
+				
+				<p><label for="password" id="password">Password</label>
+				<br>{{form.password(size=30)}}</p>
+				
+					<p><input type="submit" value="Sign in" class="loginbutton">
+					<a href="{{ url_for('createaccount') }}"><button type="button" class="loginbutton">Create an account</button></a></p>
+				<p id="forgot">Forgot your username or password? <a href="{{ url_for('forgot')}}"><b>Click here</a></b>.</p>
+			</form>
+	</div>
+	
+	<div class = "loginerror">
+		{%if form.errors %}
+		<p style="color:red">Looks like there's something missing:<br>
+			{% for field_name, field_errors in form.errors|dictsort if field_errors %}
+				{% for error in field_errors %}
+				<br><span style="margin-left:15px">- {{ error }}
+				{% endfor %}
+			{% endfor %}
+			</p>
+		{% endif %}
+	</div>
+		
+{%endblock %}

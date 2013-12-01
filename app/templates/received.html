@@ -1,0 +1,12 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+	<div class="contentholder">
+		<div class="formheader"><h2>We've received your application.</h2></div>
+		<p>There's nothing else you need to do.</p>
+		<p>We're glad you applied, and we'll send you an email in February to let you know what we've decided.</p>
+		<br><br><br><br><a href="{{url_for('logout')}}"><button class="advance" type="button"><span id="finished">LOG OUT</span>Take me to the Code for Progress homepage.</button>
+	</div>
+	
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "scriptedbase.html" %} {% block content %}
+		
+
+
+		<div class="contentholder" id="techform">
+			
+			<div class="formheader"><h2>Tell us how you use digital technology.</h2>
+				<p>Code for Progress will teach you to do some pretty advanced things - but to get into the program, you only have to be comfortable writing on a computer, using email, and browsing the Internet.</p>
+				<p>We'd still like to know a little bit about how you've used computers and the Internet, so please answer these questions for us. </p>
+			
+				{%if form.errors %}
+				<br><p style="color:red"> Looks like you didn't answer something in the first section.</p>
+				{% endif %}
+			</div>
+
+			<form action="" method="post" name="techskills">
+				{{form.hidden_tag()}}
+					
+			<div class="techsection">
+				<p><label><br><br>On a scale of 1-5 (where 1 means "I don't know what this is," and 5 means "I know this really well"), how familiar are you with:</label></p>
+				
+					<div class="mcquestion">Typing on a computer<p>{% for subfield in form.basicq1 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+
+					<div class="mcquestion">Searching for information on the Internet<p>{% for subfield in form.basicq2 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+
+					<div class="mcquestion">Using email<p>{% for subfield in form.basicq3 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+					
+					<div class="mcquestion">Using mobile apps on a phone or tablet<p>{% for subfield in form.basicq4 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+						
+					<div class="mcquestion">Using a word processor (like Microsoft Word, OpenOffice Writer, or Pages)<p>{% for subfield in form.basicq5 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+					
+					<div class="mcquestion">Using spreadsheet software, (e.g. Microsoft Excel, OpenOffice Calc, or Numbers)<p>{% for subfield in form.basicq6 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+
+					<div class="mcquestion">Using social media (like Facebook, Twitter, Tumblr, Vine)<p>{% for subfield in form.basicq7 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+
+					<div class="mcquestion">Writing a blog post<p>{% for subfield in form.basicq8 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+
+					<div class="mcquestion">Using the command line<p>{% for subfield in form.basicq9 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+			</div>
+
+
+			<div class="techsection">
+				<div class="mcquestion">
+					<div class="formheader">
+						<p>If you've used more than one kind of computer system (like Mac, Windows, or Linux), we have a few extra questions for you - but if you haven't, we'll have you skip this part.</p>
+					</div>
+					<p><br><a href="#" class="show_hide"><b>Click here to see these questions.</b></a></p>
+				</div>
+			
+				<div class="slidingDiv">
+					<p><label><br>On a scale of 1-5 (where 1 means "I don't know what this is," and 5 means "I know this really well"), how familiar are you with:</label></p>
+					
+					<div class="mcquestion">Using a Windows computer<p>{% for subfield in form.systemsq1 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+					
+					<div class="mcquestion">Using a Mac computer<p>{% for subfield in form.systemsq2 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+
+					<div class="mcquestion">Using a Linux computer<p>{% for subfield in form.systemsq3 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+				<p><br>Or, <a href="#" class="show_hide"><b>click here if you don't want to answer questions about computer systems.</b></a></p>
+				</div>
+			</div>	
+
+			<div class="techsection">
+				<div class="mcquestion">
+					<div class="formheader">
+						<p>We expect that most people doing this application haven't done much or any coding before, but we'd like to ask you a few questions if you have.</p>
+					</div>
+					<p><br><a href="#" class="show_hide2"><b>Click here to see these questions.</b></a></p>
+				</div>			
+				
+				<div class="slidingDiv2">
+					<p><label><br>On a scale of 1-5 (where 1 means "I don't know what this is," and 5 means "I know this really well"), how familiar are you with:</label></p>
+
+					<div class="mcquestion">Building a web page with HTML<p>{% for subfield in form.codingq1 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>               
+
+					<div class="mcquestion">Styling a web page with CSS<p>{% for subfield in form.codingq2 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>   
+
+					<div class="mcquestion">Writing code and scripts in Python<p>{% for subfield in form.codingq3 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+
+					<div class="mcquestion">Writing code and scripts in another programming language<p>{% for subfield in form.codingq4 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+
+					<div class="mcquestion">Developing web applications in Python<p>{% for subfield in form.codingq5 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+
+					<div class="mcquestion">Developing web applications in a language other than Python<p>{% for subfield in form.codingq6 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></div>
+				<p><br>Or, <a href="#" class="show_hide2"><b>click here if you don't want to answer questions about coding.</b></a></p>
+				</div>
+			</div>
+			
+			<button type="submit" class="advance"><span id="finished">FINISHED?</span>Click here to save your answers.</button>
+		
+		</form>
+	</div>
+
+{% endblock %}

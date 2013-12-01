@@ -1,0 +1,18 @@
+<p>Dear {{recommender.firstname}},</p>
+
+<p>{{applicant.firstname}} {{applicant.lastname}} is applying to the 2014 Code for Progress program, and has asked you to give them a recommendation. You can find out more about the Code for Progress year-long program <a href="http://www.codeforprogress.org">on our website.</a></p>
+
+<p style="margin-left: 15px"><b><a href="{{url_for('reclogin', email = recommender.email, password = 'RandomP@ssword', _external=True)}}">Click here to log in to your Recommender account</a> and get started.</b></p>
+
+<p>We thank you for your time, and for supporting {{applicant.firstname}}. The recommendation shouldn't take more than 10 minutes to fill out, and it will give us valuable informtion as we consider which candidates to accept into the program.</p>
+
+<p>With gratitude,</p>
+
+<p>The Code for Progress team<br>
+<a href="http://www.codeforprogress.org">http://www.codeforprogress.org"</a></p>
+
+
+
+
+
+

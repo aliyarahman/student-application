@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<div class="contentholder">
+		<div class="formheader"><h2>Looks like you still need to finish something.</h2></div>
+		<p>You still need to do your <b>tech survey</b>. It won't take long.</p></div>
+		<br><br><br><br><a href="{{url_for('index')}}"><button class="advance" type="button"><span id="finished">GO BACK</span>Click to go back to the main menu.</button>
+		<br><br><br><br><a href="{{url_for('received')}}"><button class="advance" type="button"><span id="finished">I'M STILL DONE</span>Click to submit an incomplete application.</button>
+	</div>
+	
+{% endblock %}
