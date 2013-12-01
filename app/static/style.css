@@ -75,15 +75,20 @@ input[type=checkbox] {display:none}
 
 
 .checkitem label 	{ font-size: 20px; cursor: pointer; margin-right: 50px;  position: relative; padding-top: 5px; padding-left: 40px;}
+.checkitem label:before {content: ""; border-radius: 3px; background: #EBEBEB; border: 2px solid #D2D2D2; position: absolute; width: 30px; height: 30px; margin-right: -5px;}
+input[type=checkbox]:checked + label:before { content:"\2715";color: #EBEBEB;	text-shadow: 1px 1px 1px rgba(0,0,0, .2); 	font-size: 36px;	background: #AFBF45; text-align: center;	line-height: 32px;}
 
-.checkitem label:before {content: ""; border-radius: 3px; background: #EBEBEB; border: 2px solid #D2D2D2; 
-						position: absolute; width: 30px; height: 30px; margin-right: -5px;}
+#recommendapplicant textarea {width: 840px; height: 100px; background: white; margin-left: 0px; margin-bottom: 0px;}
+#recommendapplicant .mcquestion {text-align: left; padding-top: 20px;}
+.justmc 			{ margin-top: 40px; margin-bottom: 50px;}
+.explain			{ text-align: left; margin-top: 40px;}
 
-input[type=checkbox]:checked + label:before {
-	content:"\2715";
-	color: #EBEBEB;
-	text-shadow: 1px 1px 1px rgba(0,0,0, .2); 
-	font-size: 36px;
-	background: #AFBF45;
-	text-align: center;
-	line-height: 32px;}
+
+#namebuttonholder		{	margin: 60px auto 0px auto; width: 900px;}
+.namebutton				{	display: block; width: 350px; height: 30px; background: #D2D2D2; 
+							text-align: center; padding: 15px; margin-left:auto; margin-right: auto; margin-bottom: 10px;
+							font-size: 24px; font-weight: bold; overflow: hidden;
+							-webkit-transition: All 0.5s ease;-moz-transition: All 0.5s ease;-o-transition: All 0.5s ease;-ms-transition: All 0.5s ease; transition: All 0.5s ease;	}
+.namebutton:hover		{background: #AFBF45}
+#namebuttonholder .details				{	background: #89952F; color: white; height: 60px; margin-top: 20px; padding-top:10px; padding-bottom: 5px;font-size: 20px; font-weight: normal}
+#namebuttonholder a		{	color: white; overflow: hidden; }

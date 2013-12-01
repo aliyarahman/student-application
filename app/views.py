@@ -91,6 +91,11 @@ def received():
 #		recommendation_request(recommender, applicant)
 		return render_template("received.html")
 
+@app.route('/recreceived')
+def recreceived():
+#	We could do an email function here too, to notify applicants that recommendations are in.
+		return render_template("recreceived.html")
+
 @app.route('/forgot')
 def forgot():
         return render_template("forgot.html")
@@ -111,6 +116,10 @@ def reclogin():
 @app.route('/recindex')
 def recindex():
 	return render_template("recindex.html")
+	
+@app.route('/recforgot')
+def recforgot():
+	return render_template("recforgot.html")
 	
 @app.route('/recform', methods = ['GET', 'POST'])
 def recform():
