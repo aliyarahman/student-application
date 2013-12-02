@@ -29,6 +29,7 @@ class User(db.Model):
     Q09 = db.Column(db.Text)
     Q10 = db.Column(db.Text)
     Q11 = db.Column(db.Text)
+    Q12 = db.Column(db.Text)
     basicq1 = db.Column(db.String(45))
     basicq2 = db.Column(db.String(45))
     basicq3 = db.Column(db.String(45))
@@ -37,6 +38,7 @@ class User(db.Model):
     basicq6 = db.Column(db.String(45))
     basicq7 = db.Column(db.String(45))
     basicq8 = db.Column(db.String(45))
+    basicq9 = db.Column(db.String(45))
     systemsq1 = db.Column(db.String(45))
     systemsq2 = db.Column(db.String(45))
     systemsq3 = db.Column(db.String(45))
@@ -66,7 +68,7 @@ class User(db.Model):
 
     def __init__(self, username=None, password=None, email=None, firstname=None, lastname=None, \
         phone=None, address=None, city=None, state=None, zipcode=None, languages=None, culturalgroups=None, \
-        Q01=None, Q02=None, Q03=None, Q04=None, Q05=None, Q06=None, Q07=None, Q08=None, Q09=None, Q10=None, Q11=None, \
+        working=None, Q01=None, Q02=None, Q03=None, Q04=None, Q05=None, Q06=None, Q07=None, Q08=None, Q09=None, Q10=None, Q11=None, Q12=None,\
         basicq1=None, basicq2=None, basicq3=None, basicq4=None, basicq5=None, basicq6=None, basicq7=None, basicq8=None, \
         systemsq1=None, systemsq2=None, systemsq3=None, systemsq4=None, codingq1=None, codingq2=None, codingq3=None, \
         codingq4=None, codingq5=None, codingq6=None, rec1firstname=None, rec1lastname=None, rec1email=None, rec1phone=None, rec1how=None, \
@@ -86,6 +88,7 @@ class User(db.Model):
         self.zipcode = zipcode
         self.languages = languages
         self.culturalgroups = culturalgroups
+        self.working = working
         self.Q01 = Q01
         self.Q02 = Q02
         self.Q03 = Q03
@@ -97,6 +100,7 @@ class User(db.Model):
         self.Q09 = Q09
         self.Q10 = Q10
         self.Q11 = Q11
+        self.Q12 = Q12
         self.basicq1 = basicq1
         self.basicq2 = basicq2
         self.basicq3 = basicq3
@@ -105,6 +109,7 @@ class User(db.Model):
         self.basicq6 = basicq6
         self.basicq7 = basicq7
         self.basicq8 = basicq8
+        self.basicq9 = basicq9
         self.systemsq1 = systemsq1
         self.systemsq2 = systemsq2
         self.systemsq3 = systemsq3
@@ -148,6 +153,35 @@ class User(db.Model):
 
     def __unicode__(self):
         return self.email
+
+    def profile_complete(self):
+        if self.email and self.password and self.culturalgroups and self.working:
+            return True
+
+        return False
+
+    def short_questions_complete(self):
+        if self.Q01 and self.Q02 and self.Q03 and self.Q04 and self.Q05 and self.Q06 and \
+           self.Q07 and self.Q08 and self.Q09 and self.Q10 and self.Q11 and self.Q12:
+           return True
+
+        return False
+
+    def tech_questions_complete(self):
+        if self.basicq1 and self.basicq2 and self.basicq3 and self.basicq4 and \
+           self.basicq5 and self.basicq6 and self.basicq7 and self.basicq8 and self.basicq9:
+           return True
+
+        return False
+
+    def recommendations_complete(self):
+        if self.rec1firstname and self.rec1lastname and self.rec1email and self.rec1phone \
+           and self.rec1how and self.rec2firstname and self.rec2lastname and self.rec2email \
+           and self.rec2phone and self.rec2how and self.rec3firstname and self.rec3lastname \
+           and self.rec3email and self.rec3phone and self.rec3how:
+           return True
+           
+        return False
 		
 class Recommendation(db.Model):
 	rec_id = db.Column(db.Integer, primary_key=True)

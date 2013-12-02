@@ -2,7 +2,7 @@ from flask.ext.wtf import Form
 from app import db
 from models import User
 from wtforms import TextField, PasswordField, IntegerField, TextAreaField, RadioField, BooleanField
-from wtforms.validators import Required, Email, EqualTo, Length, ValidationError
+from wtforms.validators import Required, Email, EqualTo, Length, ValidationError, Optional
 
 class LoginForm(Form):
 	username = TextField('username', validators = [Required(message="We need to know your username.")])
@@ -41,10 +41,15 @@ class ProfileForm(Form):
 		if not user and self.password.data == '':
 			raise ValidationError("Please enter a password")
 
-		if self.password.data != '' and self.password.data != self.retypepassword.data:
+		# hack to prevent overwrite of password with blank on profile update
+		if user and (self.password.data == '' or self.password.data == None):
+			self.password.data = user.password
+			self.retypepassword.data = user.password
+
+		if self.password.data != self.retypepassword.data:
 			raise ValidationError("Your passwords don't match - try retyping them.")
 
-		if self.password.data != '' and len(self.password.data) < 8:
+		if len(self.password.data) < 8:
 			raise ValidationError("Your password is a little short - pick one that's at least 8 characters long.")
 
 	def get_user(self):
@@ -79,15 +84,15 @@ class TechskillsForm(Form):
 	basicq7 = RadioField('basicq7', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Required()])
 	basicq8 = RadioField('basicq8', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Required()])
 	basicq9 = RadioField('basicq9', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Required()])
-	systemsq1 = RadioField('systemsq1', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
-	systemsq2 = RadioField('systemsq2', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
-	systemsq3 = RadioField('systemsq3', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
-	codingq1 = RadioField('codingq1', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
-	codingq2 = RadioField('codingq2', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
-	codingq3 = RadioField('codingq3', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
-	codingq4 = RadioField('codingq4', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
-	codingq5 = RadioField('codingq5', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
-	codingq6 = RadioField('codingq6', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
+	systemsq1 = RadioField('systemsq1', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Optional()])
+	systemsq2 = RadioField('systemsq2', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Optional()])
+	systemsq3 = RadioField('systemsq3', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Optional()])
+	codingq1 = RadioField('codingq1', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Optional()])
+	codingq2 = RadioField('codingq2', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Optional()])
+	codingq3 = RadioField('codingq3', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Optional()])
+	codingq4 = RadioField('codingq4', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Optional()])
+	codingq5 = RadioField('codingq5', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Optional()])
+	codingq6 = RadioField('codingq6', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Optional()])
 
 
 class RecommendationsForm(Form):

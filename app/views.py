@@ -45,6 +45,9 @@ def profile():
 
 	form = ProfileForm(obj=user)
 
+	if not form.password or form.password == '':
+		del form.password
+
 	if form.validate_on_submit():
 		if user:
 			flash('Successfully updated your profile.')
@@ -74,29 +77,53 @@ def profile():
 #		form=form)
 
 @app.route('/shortanswers', methods = ['GET', 'POST'])
+@login_required
 def shortanswers():
-	form = ShortanswerForm()
+	form = ShortanswerForm(obj=current_user)
+
 	if form.validate_on_submit():
+		form.populate_obj(current_user)
+
+		db.session.add(current_user)
+		db.session.commit()
+
 		flash("Thanks, we've saved your responses to the short answer section.")
-		return redirect('/index')
+		return redirect('/')
 	return render_template('shortanswers.html',
 		form=form)
 
 @app.route('/techskills', methods = ['GET', 'POST'])
+@login_required
 def techskills():
-	form = TechskillsForm()
+	form = TechskillsForm(obj=current_user)
+
 	if form.validate_on_submit():
+		form.populate_obj(current_user)
+
+		db.session.add(current_user)
+		db.session.commit()
+
 		flash("Thanks, we've saved your responses to the tech survey.")
-		return redirect('/index')
+
+		return redirect('/')
+
 	return render_template('techskills.html',
 		form=form)
 
 @app.route('/recommendations', methods = ['GET', 'POST'])
+@login_required
 def recommendations():
-	form = RecommendationsForm()
+	form = RecommendationsForm(obj=current_user)
+	
 	if form.validate_on_submit():
+		form.populate_obj(current_user)
+
+		db.session.add(current_user)
+		db.session.commit()
+
 		flash('Your recommendation info has been saved.')
-		return redirect('/index')
+		return redirect('/')
+
 	return render_template('recommendations.html',
 		form=form)
 

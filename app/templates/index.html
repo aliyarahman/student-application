@@ -7,16 +7,16 @@
 </div>
 
 <div id="buttonholder">
-	<a href="{{ url_for('profile') }}"><div class="componentbutton shortened">PROFILE
+	<a href="{{ url_for('profile') }}"><div class="componentbutton shortened {% if current_user.profile_complete() %}finished{% endif %}">PROFILE
 	<div class="details">Tell us who you are.</div></div></a>
 	
-	<a href="{{ url_for('shortanswers') }}"><div class="componentbutton">SHORT ANSWERS
+	<a href="{{ url_for('shortanswers') }}"><div class="componentbutton {% if current_user.short_questions_complete() %}finished{% endif %}">SHORT ANSWERS
 	<div class="details">Tell us how you think.</div></div></a>
 	
-	<a href="{{ url_for('techskills') }}"><div class="componentbutton shortened">TECH SURVEY
+	<a href="{{ url_for('techskills') }}"><div class="componentbutton shortened {% if current_user.tech_questions_complete() %}finished{% endif %}">TECH SURVEY
 	<div class="details">Tell us how you use digital technology.</div></div></a>
 	
-	<a href="{{ url_for('recommendations') }}"><div class="componentbutton">RECOMMENDATIONS
+	<a href="{{ url_for('recommendations') }}"><div class="componentbutton {% if current_user.recommendations_complete() %}finished{% endif %}">RECOMMENDATIONS
 	<div class="details">Let other people tell us about you.</div></div></a>
 </div>
 
