@@ -1,10 +1,24 @@
 from flask.ext.wtf import Form
+from app import db
+from models import User
 from wtforms import TextField, PasswordField, IntegerField, TextAreaField, RadioField, BooleanField
-from wtforms.validators import Required, Email, EqualTo, Length
+from wtforms.validators import Required, Email, EqualTo, Length, ValidationError
 
 class LoginForm(Form):
 	username = TextField('username', validators = [Required(message="We need to know your username.")])
 	password = PasswordField('password', validators = [Required(message="We need your password.")])
+
+	def validate_username(self, field):
+		user = self.get_user()
+
+		if user is None:
+			raise ValidationError('Invalid User')
+
+		if user.password != self.password.data:
+			raise ValidationError('Invalid Password')
+
+	def get_user(self):
+		return db.session.query(User).filter_by(email=self.username.data).first()
 
 class ProfileForm(Form):
 	firstname = TextField('firstname', validators = [Required(message='We need to know your first name!')])
@@ -19,7 +33,7 @@ class ProfileForm(Form):
 	zipcode = IntegerField('zipcode', validators = [Required(message="We need your zipcode!")])
 	languages = TextAreaField('languages', validators = [Required(message="Please tell us what language(s) you speak.")])
 	culturalgroups = TextAreaField('culturalgroups', validators = [Required(message="Please answer question 11.")])
-	working = TextAreaField('working', validators = [Required(message="Please answer the last question.")])
+	#working = TextAreaField('working', validators = [Required(message="Please answer the last question.")])
 
 class RecLoginForm(Form):
 	username = TextField('username', validators = [Required(message="We need to know your username.")])
