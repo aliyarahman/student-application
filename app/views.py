@@ -12,12 +12,11 @@ recommender =  {'email':'aliya@codeforprogress.org','firstname':'Someone','lastn
 def load_user(userid):
 	return User.query.get(userid)
 
-@app.route('/index')
-@app.route('/home')
+@app.route('/', methods= ['GET'])
+@login_required
 def index():
 	return render_template("index.html")
 
-@app.route('/', methods= ['GET', 'POST'])
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
 	form = LoginForm()
@@ -25,11 +24,10 @@ def login():
 		user = form.get_user()
 		flash('Welcome, ' + form.username.data + '.')
 		login_user(user)
-		return redirect('/index')
+		return redirect('/')
 	return render_template('login.html',
 		form=form)
 		
-@login_required
 @app.route('/checklist', methods = ['GET', 'POST'])
 def checklist():
 	form = ChecklistForm()
@@ -49,21 +47,20 @@ def profile():
 
 	if form.validate_on_submit():
 		if user:
-			form.populate_obj(user)
-
 			flash('Successfully updated your profile.')
 		else:
 			user = User()
-			form.populate_obj(user)
-
-			login_user(user)
 
 			flash('Congratulations, you just created an account!')
 
+		form.populate_obj(user)
 		db.session.add(user)
 		db.session.commit()
 
-		return redirect('/index')
+		if not current_user.is_authenticated():
+			login_user(user)
+
+		return redirect('/')
 
 	return render_template('demographic.html', form=form)
 
@@ -129,6 +126,7 @@ def forgot():
         return render_template("forgot.html")
 
 @app.route('/logout')
+@login_required
 def logout():
 	logout_user()
 	return redirect("/")

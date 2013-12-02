@@ -38,13 +38,13 @@ class ProfileForm(Form):
 	def validate_password(self, field):
 		user = self.get_user()
 
-		if not user and self.password.data == None:
+		if not user and self.password.data == '':
 			raise ValidationError("Please enter a password")
 
-		if self.password.data and self.password.data != self.retypepassword.data:
+		if self.password.data != '' and self.password.data != self.retypepassword.data:
 			raise ValidationError("Your passwords don't match - try retyping them.")
 
-		if self.password.data and len(self.password.data) < 8:
+		if self.password.data != '' and len(self.password.data) < 8:
 			raise ValidationError("Your password is a little short - pick one that's at least 8 characters long.")
 
 	def get_user(self):

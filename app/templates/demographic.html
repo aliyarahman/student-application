@@ -2,7 +2,7 @@
 {% block content %}
 
 	<div class="contentholder">
-		<div class="formheader"><h2>Update your profile.</h2>
+		<div class="formheader"><h2>{% if current_user.is_authenticated() %}Update your profile.{% else %}Create a new profile.{% endif %}</h2>
  
 		{%if form.errors %}
 		<br><p style="color:red">Looks like there were some mistakes on your form:<br>
