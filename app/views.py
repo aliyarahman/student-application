@@ -1,5 +1,5 @@
 from flask import render_template, redirect, flash, request
-from flask.ext.login import login_user, logout_user, login_required
+from flask.ext.login import login_user, logout_user, login_required, current_user
 from app import app, login_manager, db
 from models import User
 from forms import LoginForm, ProfileForm, RecLoginForm, ShortanswerForm, RecommendationsForm, TechskillsForm, RecommendApplicantForm, ChecklistForm
@@ -34,35 +34,47 @@ def login():
 def checklist():
 	form = ChecklistForm()
 	if form.validate_on_submit():
-		return redirect('/createprofile')
+		return redirect('/profile')
 	return render_template('checklist.html',
 		form=form)
 
-@app.route('/createprofile', methods = ['GET', 'POST'])
-def createprofile():
-	form = ProfileForm()
+@app.route('/profile', methods = ['GET', 'POST'])
+def profile():
+	if current_user.is_authenticated():
+		user = current_user
+	else:
+		user = None
+
+	form = ProfileForm(obj=user)
+
 	if form.validate_on_submit():
-		user = User()
-		form.populate_obj(user)
+		if user:
+			form.populate_obj(user)
+
+			flash('Successfully updated your profile.')
+		else:
+			user = User()
+			form.populate_obj(user)
+
+			login_user(user)
+
+			flash('Congratulations, you just created an account!')
 
 		db.session.add(user)
 		db.session.commit()
 
-		login_user(user)
-
-		flash('Congratulations, you just created an account!')
 		return redirect('/index')
-	return render_template('firstdemographic.html',
-		form=form)
 
-@app.route('/demographic', methods = ['GET', 'POST'])
-def demographic():
-	form = ProfileForm()
-	if form.validate_on_submit():
-		flash("We've updated your profile.")
-		return redirect('/demographic')
-	return render_template('demographic.html',
-		form=form)
+	return render_template('demographic.html', form=form)
+
+#@app.route('/demographic', methods = ['GET', 'POST'])
+#def demographic():
+#	form = ProfileForm()
+#	if form.validate_on_submit():
+#		flash("We've updated your profile.")
+#		return redirect('/demographic')
+#	return render_template('demographic.html',
+#		form=form)
 
 @app.route('/shortanswers', methods = ['GET', 'POST'])
 def shortanswers():

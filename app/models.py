@@ -17,6 +17,7 @@ class User(db.Model):
     zipcode = db.Column(db.String(10))
     languages = db.Column(db.Text)
     culturalgroups = db.Column(db.Text)
+    working = db.Column(db.Text)
     Q01 = db.Column(db.Text)
     Q02 = db.Column(db.Text)
     Q03 = db.Column(db.Text)

@@ -1,25 +1,28 @@
 {% extends "base.html" %}
+
 {% block content %}
+<div class="contentholder">
+	<h2>Your Code for Progress application</h2>
+	<p>This application has four parts that you need to finish before you can send it to us. We'll mark each one when you've finished it. You can always change what you've written in a section, even if it's marked complete, before you send in your final application.</p>
+</div>
 
+<div id="buttonholder">
+	<a href="{{ url_for('profile') }}"><div class="componentbutton shortened">PROFILE
+	<div class="details">Tell us who you are.</div></div></a>
+	
+	<a href="{{ url_for('shortanswers') }}"><div class="componentbutton">SHORT ANSWERS
+	<div class="details">Tell us how you think.</div></div></a>
+	
+	<a href="{{ url_for('techskills') }}"><div class="componentbutton shortened">TECH SURVEY
+	<div class="details">Tell us how you use digital technology.</div></div></a>
+	
+	<a href="{{ url_for('recommendations') }}"><div class="componentbutton">RECOMMENDATIONS
+	<div class="details">Let other people tell us about you.</div></div></a>
+</div>
 
-
-	<div class="contentholder"><h2>Your Code for Progress application</h2>
-	<p>This application has four parts that you need to finish before you can send it to us. We'll mark each one when you've finished it. You can always change what you've written in a section, even if it's marked complete, before you send in your final application.</p></div>
-
-		<div id="buttonholder">
-			<a href="{{ url_for('demographic') }}"><div class="componentbutton shortened">PROFILE
-			<div class="details">Tell us who you are.</div></div></a>
-			
-			<a href="{{ url_for('shortanswers') }}"><div class="componentbutton">SHORT ANSWERS
-			<div class="details">Tell us how you think.</div></div></a>
-			
-			<a href="{{ url_for('techskills') }}"><div class="componentbutton shortened">TECH SURVEY
-			<div class="details">Tell us how you use digital technology.</div></div></a>
-			
-			<a href="{{ url_for('recommendations') }}"><div class="componentbutton">RECOMMENDATIONS
-			<div class="details">Let other people tell us about you.</div></div></a>
-		</div>
-
-		<a href="{{ url_for('finalsubmission') }}"><div class="advance"><span id="finished">FINISHED?</span>Click here to see if anything's missing.</div></a>
-
+<a href="{{ url_for('finalsubmission') }}">
+	<div class="advance">
+		<span id="finished">FINISHED?</span>Click here to see if anything's missing.
+	</div>
+</a>
 {% endblock %}

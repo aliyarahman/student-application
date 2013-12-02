@@ -15,7 +15,7 @@
 		{% endif %}	
 		</div>
 
-		<form action="" method="post" name="profile">
+		<form action="" method="post" name="profile" class="profile">
 			{{form.hidden_tag()}}
 
 				<div class="textfield_container">
@@ -39,7 +39,7 @@
 
 				<label for="languages">What languages do you speak, and how well do you speak them?</label><p>{{form.languages}}</p>
 				<label for="culturalgroups">Our mission statement says that we want to train coders from communities "historically excluded" from the tech industry. Are you part of any of these communities, and if so what are they?</label><p>{{form.culturalgroups}}</p>
-				<label for="working">Are you working right now (that could be a job, more than one job, or being a caretaker for someone)? If so, tell us about it.</label><p>{{form.working}}</p>
+				<label for="working">Are you working right now (that could be a job, more than one job, or being a caretaker for someone)? If so, tell us about it.</label><p>{{ form.working }}</p>
 				<button type="submit" class="advance"><span id="finished">FINISHED?</span>Click here to save your changes.</button>
 		</form>
 	</div>

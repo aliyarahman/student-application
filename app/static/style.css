@@ -6,6 +6,7 @@ body				{	font: normal 16px "HelveticaNeue-Light", "Helvetica Neue Light", "Helv
 a					{text-decoration: none; color: #686868}
 
 #header 			{	margin-left: auto; margin-right: auto; margin-top: 60px; width: 800px;}
+#content 			{   margin: 0 auto; width: 1075px; }
 #triangle  			{	margin-top: 30px;border-top: solid #EDEDED 3px}
 .arrow-down 		{	margin-left: auto; margin-right: auto; width: 0; height: 0; border-left: 35px solid white; border-right: 35px solid white; border-top: 15px solid #EDEDED;}
 
@@ -45,15 +46,15 @@ a					{text-decoration: none; color: #686868}
         background-color: #90A328;
 }
 
-.contentholder		{	margin-left: auto; margin-right: auto; width: 900px; color: #696969;}
+.contentholder		{	color: #696969;}
 .contentholder h2	{	font: normal 24px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
 						text-align: center; margin-bottom: 30px; margin-top: 10px; color: black;}
-.formheader			{	text-align: left;}
-.formheader h2		{	font-size: 28px; text-align: left; margin-bottom: 60px; margin-top: 10px; color: #AFBF45;}
+.formheader			{	/*text-align: left;*/ }
+.formheader h2		{	font-size: 28px; margin-bottom: 60px; margin-top: 10px; color: #AFBF45;}
 .formheader h3		{	font: normal 22px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
 						text-align: left; margin-bottom: 20px; margin-top: 50px; color: #AFBF45;}				
 
-#buttonholder		{	margin: 60px auto 0px auto; width: 1085px; height: 270px;}
+#buttonholder		{	margin-top: 40px; height: 270px;}
 .componentbutton	{	display: inline-block; width: 280px; height: 50px; background: #D2D2D2; 
 						text-align: center; vertical-align: top; padding-top: 25px; margin-left:5px; margin-right: 5px;
 						font-size: 24px; font-weight: bold; overflow: hidden;
@@ -64,7 +65,7 @@ a					{text-decoration: none; color: #686868}
 .details			{	background: #89952F; height: 60px; margin-top: 20px; padding-top:10px; padding-bottom: 5px;font-size: 20px; font-weight: normal; vertical-align: middle}
 #buttonholder a		{	color: white; overflow: hidden; }
 
-.advance			{   text-align: left; position: absolute; right: 130px; 100px;
+.advance			{   text-align: left; float: right; 
 						height: 70px; width: 360px; border: 1px solid #AFBF45; color: #686868; padding: 6px 25px 10px 25px;
 						box-shadow:0 0 1px #AFBF45;-moz-box-shadow:0 0 1px #AFBF45;-webkit-box-shadow:0 0 1px #AFBF45;}
 #finished			{	display:block; font-size: 36px; font-weight: 800;}
@@ -75,8 +76,7 @@ label				{   text-align: right; font-weight: bold; font-size: 20px; color: #6868
 input[type="text"], input[type="password"], input[type="email"]	{	border: 0px; text-align: left; width: 400px; height:40px; margin-left: 20px; padding-left: 10px; font-size: 20px; background: #F6F6F6}
 #loginbox button	{	border: 0px; margin: 70px 5px 20px 5px; width: 290px; height: 45px; text-align: center; font-weight: bold; font-size: 22px; color: white; background: #afbf45}
 #forgot				{	color: #686868; font-size: 18px;}
-textarea			{	border: 0px; padding: 10px; font-size: 20px; background: #F6F6F6; height:150px; width:950px; margin-bottom: 30px; resize: none; overflow: hidden}
-
+textarea			{	border: 0px; padding: 10px; font-size: 20px; background: #F6F6F6; height:150px; width: 100%; margin-bottom: 30px; resize: none; overflow: hidden}
 
 .textfield_container {height: 400px; width: 1100px;}
 .textfield_container input {width: 300px;}
@@ -129,3 +129,14 @@ input[type=checkbox]:checked + label:before { content:"\2715";color: #EBEBEB;	te
 .namebutton:hover		{background: #AFBF45}
 #namebuttonholder .details				{	background: #89952F; color: white; height: 60px; margin-top: 20px; padding-top:10px; padding-bottom: 5px;font-size: 20px; font-weight: normal}
 #namebuttonholder a		{	color: white; overflow: hidden; }
+
+ul.flashes {
+	list-style-type: none;
+}
+
+ul.flashes li {
+	background: beige;
+	border: 1px solid #AAA;
+	color: #555;
+	padding: 0.25em 0.5em;
+}
