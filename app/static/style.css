@@ -1,12 +1,49 @@
+html, body			{ 	padding: 0; margin: 0; }
+
 body				{	font: normal 16px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 						padding-bottom: 200px;}
 
 a					{text-decoration: none; color: #686868}
 
-#header 			{	margin-left: auto; margin-right: auto; margin-top: 30px; width: 800px;}
+#header 			{	margin-left: auto; margin-right: auto; margin-top: 60px; width: 800px;}
 #triangle  			{	margin-top: 30px;border-top: solid #EDEDED 3px}
 .arrow-down 		{	margin-left: auto; margin-right: auto; width: 0; height: 0; border-left: 35px solid white; border-right: 35px solid white; border-top: 15px solid #EDEDED;}
 
+#banner {
+    position:fixed;
+    top:0;
+    width:100%;
+    padding: 0;
+    z-index:100;
+    height: 40px;
+    background: black;
+    color: #FFF;
+}
+
+.navbutton, #user-info {
+    display: inline-block;
+    color: #FFF;
+    border: 0px;
+    background-color: black;        
+    text-align: right;
+}
+
+.navbutton {
+	float: right;
+	margin-right: 10px;
+	height: 40px;
+}
+
+#user-info {
+	margin-top: 10px;
+	margin-left: 10px;
+	height: 30px;
+	float: left;
+}
+
+.navbutton:hover {
+        background-color: #90A328;
+}
 
 .contentholder		{	margin-left: auto; margin-right: auto; width: 900px; color: #696969;}
 .contentholder h2	{	font: normal 24px "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;

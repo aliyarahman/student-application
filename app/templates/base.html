@@ -10,15 +10,15 @@
 		<a href="{{ url_for('help') }}"><button class="navbutton">Get help</button></a>
 	{% if current_user.is_authenticated() %}
 		<a href="{{ url_for('index') }}"><button class="navbutton">My application</button></a>
-		<a href="{{ url_for('logout') }}"><button class="navbutton">Log out</button>
+		<a href="{{ url_for('logout') }}"><button class="navbutton">Log out</button></a>
+		<span id="user-info">User: {{ current_user }}</span>
 	{% else %}
-		<a href="{{ url_for('login') }}"><button class="navbutton">Log in</button>
+		<a href="{{ url_for('login') }}"><button class="navbutton">Log in</button></a>
 	{% endif %}
 	</div>
 
 	<div id="header">
 		<img src="../static/CFPlogo.jpg">
-		{{ current_user }}
 		<div id="triangle"><div class="arrow-down"></div></div>
 	</div>
 
