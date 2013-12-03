@@ -69,7 +69,7 @@ class User(db.Model):
     def __init__(self, username=None, password=None, email=None, firstname=None, lastname=None, \
         phone=None, address=None, city=None, state=None, zipcode=None, languages=None, culturalgroups=None, \
         working=None, Q01=None, Q02=None, Q03=None, Q04=None, Q05=None, Q06=None, Q07=None, Q08=None, Q09=None, Q10=None, Q11=None, Q12=None,\
-        basicq1=None, basicq2=None, basicq3=None, basicq4=None, basicq5=None, basicq6=None, basicq7=None, basicq8=None, \
+        basicq1=None, basicq2=None, basicq3=None, basicq4=None, basicq5=None, basicq6=None, basicq7=None, basicq8=None, basicq9=None, \
         systemsq1=None, systemsq2=None, systemsq3=None, systemsq4=None, codingq1=None, codingq2=None, codingq3=None, \
         codingq4=None, codingq5=None, codingq6=None, rec1firstname=None, rec1lastname=None, rec1email=None, rec1phone=None, rec1how=None, \
         rec2firstname=None, rec2lastname=None, rec2email=None, rec2phone=None, rec2how=None, \
