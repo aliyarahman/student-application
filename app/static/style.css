@@ -145,3 +145,5 @@ ul.flashes li {
 	color: #555;
 	padding: 0.25em 0.5em;
 }
+
+#username				{ display: inline-block; margin-left: 40px;}

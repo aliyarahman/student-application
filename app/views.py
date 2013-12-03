@@ -22,7 +22,7 @@ def login():
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = form.get_user()
-		flash('Welcome, ' + form.username.data + '.')
+		flash('Welcome, ' + form.firstname.data + '.')
 		login_user(user)
 		return redirect('/')
 	return render_template('login.html',

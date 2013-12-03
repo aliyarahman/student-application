@@ -19,7 +19,7 @@
 	<div id="loginbox">
 		<form action="" method="post" name="login">
 			{{form.hidden_tag()}}
-			<p><label for="username" id="username">Username</label>{{form.username(size=30)}}</p>
+			<p><label for="username" id="username">Email</label>{{form.email(size=30)}}
 			<p><label for="password" id="password">Password</label>{{form.password(size=30)}}</p>
 			<p><button type="submit" value="LOG IN">LOG IN</button>
 			<a href="{{ url_for('checklist') }}"><button type="button">CREATE AN ACCOUNT</button></a></p>
