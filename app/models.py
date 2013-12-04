@@ -66,6 +66,7 @@ class User(db.Model):
     rec3how = db.Column(db.Text)
     timestamp = db.Column(db.DateTime)
 
+
     def __init__(self, username=None, password=None, email=None, firstname=None, lastname=None, \
         phone=None, address=None, city=None, state=None, zipcode=None, languages=None, culturalgroups=None, \
         working=None, Q01=None, Q02=None, Q03=None, Q04=None, Q05=None, Q06=None, Q07=None, Q08=None, Q09=None, Q10=None, Q11=None, Q12=None,\
@@ -135,6 +136,7 @@ class User(db.Model):
         self.rec3phone = rec3phone
         self.rec3email = rec3email
         self.rec3how = rec3how
+
         
     def __repr__(self):
         return '<User %r>' % (self.username)
@@ -182,6 +184,9 @@ class User(db.Model):
            return True
            
         return False
+
+
+
 		
 class Recommendation(db.Model):
 	rec_id = db.Column(db.Integer, primary_key=True)

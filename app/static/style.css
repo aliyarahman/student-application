@@ -81,7 +81,7 @@ label				{   text-align: right; font-weight: bold; font-size: 20px; color: #6868
 input[type="text"], input[type="password"], input[type="email"]	{	border: 0px; text-align: left; width: 400px; height:40px; margin-left: 20px; padding-left: 10px; font-size: 20px; background: #F6F6F6}
 #loginbox button	{	border: 0px; margin: 50px 5px 20px 5px; width: 290px; height: 45px; text-align: center; font-weight: bold; font-size: 22px; color: white; background: #afbf45}
 #forgot				{	color: #686868; font-size: 18px;}
-textarea			{	border: 0px; padding: 10px; font-size: 20px; background: #F6F6F6; height:150px; width: 100%; margin-bottom: 30px; resize: none; overflow: hidden}
+textarea			{	border: 0px; padding: 10px; font-size: 20px; background: #F6F6F6; height:150px; width: 100%; margin-bottom: 30px; resize: none;}
 
 .textfield_container {height: 400px; width: 1100px;}
 .textfield_container input {width: 300px;}
@@ -105,20 +105,20 @@ textarea			{	border: 0px; padding: 10px; font-size: 20px; background: #F6F6F6; h
 .mcquestion			{	list-style-type: none; background: #F6F6F6; text-align: center; font-size: 18px; margin-top: 30px; padding: 10px 20px 10px 20px;}
 /*#techform p			{	padding-top: 5px; margin:0px;}*/
 
-.mcquestion label 	{	font-size: 18px; cursor: pointer; margin-right: 50px; position: relative;	padding-left: 30px;}
-.mcquestion label:before {content: ""; width: 20px; height: 20px; border-radius: 12px; background: #EBEBEB; border: 2px solid #D2D2D2; position: absolute; margin-right:10px;}
+.mcquestion label 	{	font-size: 18px; cursor: pointer; margin-right: 50px; position: relative; padding-left: 30px;}
+.mcquestion label:before {width: 20px; height: 20px; border-radius: 12px; background: #EBEBEB; border: 2px solid #D2D2D2; position: absolute;content: ""; }
 input[type=radio] 	{	display: none;}
 input[type=radio]:checked + label:before { background: #AFBF45;}
 
 .checkitem			{	list-style-type: none; background: #F6F6F6; text-align: left; font-size: 18px; margin-top: 30px; padding: 10px 20px 10px 20px;}
-.understand			{	font-size: 20px; font-weight: bold;}
+.understand			{	margin-right: 18px; font-size: 20px; font-weight: bold;}
 
 input[type=checkbox] {display:none}
 
 
-.checkitem label 	{ font-size: 20px; cursor: pointer; margin-right: 50px;  position: relative; padding-top: 5px; padding-left: 40px;}
-.checkitem label:before {content: ""; border-radius: 3px; background: #EBEBEB; border: 2px solid #D2D2D2; position: absolute; width: 30px; height: 30px; margin-right: -5px;}
-input[type=checkbox]:checked + label:before { content:"\2715";color: #EBEBEB;	text-shadow: 1px 1px 1px rgba(0,0,0, .2); 	font-size: 36px;	background: #AFBF45; text-align: center;	line-height: 32px;}
+.checkitem label 	{ font-size: 20px; cursor: pointer; position: relative; padding-top: 5px;}
+.checkitem label:before {content: ""; border-radius: 3px; background: #EBEBEB; border: 2px solid #D2D2D2; position: absolute; width: 30px; height: 30px;}
+input[type=checkbox]:checked + label:before { content:"\2713";color: #EBEBEB;	text-shadow: 1px 1px 1px rgba(0,0,0, .2);background: #AFBF45; font-size: 50px; text-align: center; line-height: 30px;}
 
 #recommendapplicant textarea {width: 840px; height: 100px; background: white; margin-left: 0px; margin-bottom: 0px;}
 #recommendapplicant .mcquestion {text-align: left; padding-top: 20px;}

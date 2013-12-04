@@ -29,10 +29,11 @@ def login():
 		form=form)
 		
 @app.route('/checklist', methods = ['GET', 'POST'])
+@login_required
 def checklist():
 	form = ChecklistForm()
 	if form.validate_on_submit():
-		return redirect('/profile')
+		return redirect('/')
 	return render_template('checklist.html',
 		form=form)
 
@@ -63,7 +64,7 @@ def profile():
 		if not current_user.is_authenticated():
 			login_user(user)
 
-		return redirect('/')
+		return redirect('/checklist')
 
 	return render_template('demographic.html', form=form)
 
