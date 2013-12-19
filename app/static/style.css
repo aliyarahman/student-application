@@ -65,6 +65,7 @@ a					{text-decoration: none; color: #686868}
 							 /*font-size: 24px;*/ font-weight: bold;}
 
 .componentbutton.finished	{ background: #AFBF45; font-weight: bold; }
+.namebutton.finished		{ background: #AFBF45; }
 
 .shortened			{ 	width: 200px;}
 .details			{	background: #89952F; height: 60px; margin-top: 23px; padding-top:10px; padding-bottom: 5px;font-size: 20px; font-weight: normal; vertical-align: middle}
@@ -105,20 +106,21 @@ textarea			{	border: 0px; padding: 10px; font-size: 20px; background: #F6F6F6; h
 .mcquestion			{	list-style-type: none; background: #F6F6F6; text-align: center; font-size: 18px; margin-top: 30px; padding: 10px 20px 10px 20px;}
 /*#techform p			{	padding-top: 5px; margin:0px;}*/
 
-.mcquestion label 	{	font-size: 18px; cursor: pointer; margin-right: 50px; position: relative; padding-left: 30px;}
+/*.mcquestion label 	{	font-size: 18px; cursor: pointer; margin-right: 50px; position: relative; padding-left: 30px;}
 .mcquestion label:before {width: 20px; height: 20px; border-radius: 12px; background: #EBEBEB; border: 2px solid #D2D2D2; position: absolute;content: ""; }
-input[type=radio] 	{	display: none;}
-input[type=radio]:checked + label:before { background: #AFBF45;}
+input[type=radio]:checked + label:before { background: #AFBF45;}*/
+
+input[type=radio] 	{	margin-left: 40px;}
+
 
 .checkitem			{	list-style-type: none; background: #F6F6F6; text-align: left; font-size: 18px; margin-top: 30px; padding: 10px 20px 10px 20px;}
 .understand			{	margin-right: 18px; font-size: 20px; font-weight: bold;}
 
 input[type=checkbox] {display:none}
-
-
 .checkitem label 	{ font-size: 20px; cursor: pointer; position: relative; padding-top: 5px;}
 .checkitem label:before {content: ""; border-radius: 3px; background: #EBEBEB; border: 2px solid #D2D2D2; position: absolute; width: 30px; height: 30px;}
 input[type=checkbox]:checked + label:before { content:"\2713";color: #EBEBEB;	text-shadow: 1px 1px 1px rgba(0,0,0, .2);background: #AFBF45; font-size: 50px; text-align: center; line-height: 30px;}
+
 
 #recommendapplicant textarea {width: 840px; height: 100px; background: white; margin-left: 0px; margin-bottom: 0px;}
 #recommendapplicant .mcquestion {text-align: left; padding-top: 20px;}

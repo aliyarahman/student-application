@@ -8,6 +8,6 @@ MAIL_USE_SSL = True
 MAIL_USERNAME = 'aliya@codeforprogress.org'
 MAIL_PASSWORD = 'e19740crsd'
 
-SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://apply:F6supwqH2b@localhost/studentapp'
+SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:Popcorn13@localhost/studentapp'
 
 ADMINS = ['aliya@codeforprogress.org']

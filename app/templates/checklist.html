@@ -30,8 +30,8 @@
 				<div class="checkitem">Code for Progress is a training, but it's also a community. That means we expect our graduates to mentor new students, and to come back and teach every now and then (we'll give you the things you need to do that).
 				<p><span class="understand">I understand.</span> {{form.check5}}<label for="check5"></label></p></div>
 				
-				<br><br><br><br><a href="{{url_for('index')}}"><button class="advance" type="submit"><span id="finished">I UNDERSTAND</span>Get me started on my application!</button>	
-				<br><br><br><br><a href="{{url_for('logout')}}"><button class="advance" type="button"><span id="finished">TAKE ME BACK</span>Actually, this program isn't for me.</button>
+				<br><br><br><br><button class="advance" type="submit" onClick="location.href ='{{ url_for('index') }}'"><span id="finished">I UNDERSTAND</span>Get me started on my application!</button>	
+				<br><br><br><br><button class="advance" type="button" onClick="location.href ='{{ url_for('logout') }}'"><span id="finished">TAKE ME BACK</span>Actually, this program isn't for me.</button>
 				<br><br><br>
 		</form>
 
