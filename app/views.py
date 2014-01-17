@@ -96,8 +96,6 @@ def checklist():
 	return render_template('checklist.html',
 		form=form)
 
-
-
 @app.route('/createprofile', methods = ['GET', 'POST'])
 def createprofile():
 	if current_user.is_authenticated():
@@ -128,10 +126,6 @@ def createprofile():
 		return redirect('/')
 
 	return render_template('createprofile.html', form=form)
-
-
-
-
 
 @app.route('/profile', methods = ['GET', 'POST'])
 def profile():
