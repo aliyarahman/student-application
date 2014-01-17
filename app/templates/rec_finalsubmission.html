@@ -1,0 +1,18 @@
+{% extends "recbase.html" %}
+{% block content %}
+
+
+	<div class="contentholder">
+			<div class="formheader"><h2>Thank you</h2></div>
+			<br><br><p>Thanks for recommending a Code for Progress applicant. If you're ready to send us your responses, click the button below.</p>
+
+			<br><br><br><br>
+			</div></div>
+			<a href="{{url_for('rec_received')}}">
+				<button class="advance" type="button">
+					<span id="finished">SUBMIT</span>Click to send us your recommendations.
+				</button>
+			</a>
+
+
+{% endblock %}

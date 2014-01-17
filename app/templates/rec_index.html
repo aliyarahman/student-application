@@ -1,0 +1,31 @@
+{% extends "recbase.html" %}
+{% block content %}
+
+
+{% if current_user.all_recs_complete == 1 %}
+	<div class="contentholder">
+	<div class="formheader"><h2>Thanks for supporting a Code for Progress applicant</h2></div>
+	<br><br><p>We've received your completed recommendations, and look forward to reading them!
+	<p>We'll contact applicants in February after the selection committee has had time to look through all of our submitted applications.</p>
+	</div>
+
+
+{% else %}
+<div class="contentholder"><h2>Your Code for Progress applicants</h2>
+
+	<p>The applicant(s) below chose you as a recommender and gave us your <b>{{ current_user.email }}</b> email address.</p>
+	
+	<p>The button for each applicant will be gray until you finish that recommendation - when the button turns green, you're done! You can change what you've written in a section, even if it's marked green, until you submit your final set of complete applications.</p>
+
+	<p>Click on an applicant to get started.</p>
+		<div id="namebuttonholder">
+			{% for s in students %}
+				<a href="{{ url_for('rec_form', student_id=s.user_id) }}"><div class="namebutton {% if recs[students.index(s)].recommendation_complete==1 %}finished{% endif %}">{{s.firstname}} {{s.lastname}}</div></a>
+			{% endfor %}
+		</div>
+</div></div>
+	<br><br><br><br><br><a href="{{ url_for('rec_finalsubmission') }}"><div class="advance"><span id="finished">FINISHED?</span>Click here to submit your recommendations.</div></a>
+
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,6 @@
+We just had a complete application submitted by {{student.firstname}} {{student.lastname}}, from {{student.city}}, {{student.state}}.
+
+That's now {{completed_app_count}} complete applications.
+
+Applicants are now getting automatic	confirmations, and recommenders	are automatically being	notified.
+

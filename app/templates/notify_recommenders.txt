@@ -1,0 +1,24 @@
+Hi {{recommender.firstname}},
+
+{{student.firstname}} {{student.lastname}} just submitted an application to the 2014 Code for Progress program, and asked that you fill out a recommendation on their behalf before January 27th.
+
+To make this process as simple as possible, we've written a short page of questions for you to answer. You can get started by visiting the recommender page at http://apply.codeforprogress.org/rec_login, and by logging in with the following info:
+
+Email: {{recommender.email}}
+Password: {{recommender.password}}
+
+Code for Progress is a non-profit organization that recruits social justice activists from communities historically excluded from the tech industry and trains them to be professional software developers in the social justice movement. Developers learn to build digital tools that help organizations communicate with, organize, and mobilize their constituencies.
+
+Our training starts with 16-weeks of full-time classroom instruction and hands-on learning in Washington DC, and continues with eight months of job placement assistance, mentorship, and community support. You can find out more about our program here, you can read about what kinds of applicants were' looking for here.
+
+The insight you have about {{student.firstname}} is extremely valuable to us, so please be as detailed as possible when you provide your responses. If you have any questions, please send us a note at applications@codeforprogress.org.
+
+Thanks for all you've done to support a Code for Progress applicant - we look forward to reading your recommendation!
+
+- The Code for Progress team
+
+
+applications@codeforprogress.org
+http://www.codeforprogress.org
+
+Know someone else who would be great for Code for Progress? Go to http://www.codeforprogress.org/send-this-application to send them the application.

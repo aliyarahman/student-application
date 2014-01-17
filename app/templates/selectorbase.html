@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Student Application - Code for Progress</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	
+<body>
+	<div id="banner">
+		<a href="{{ url_for('help') }}"><button class="navbutton">Get help</button></a>
+	{% if current_user.is_authenticated() %}
+		<a href="{{ url_for('index') }}"><button class="navbutton">My application</button></a>
+		<a href="{{ url_for('logout') }}"><button class="navbutton">Log out</button></a>
+		<span id="user-info">Hi, {{ current_user.firstname }}</span>
+	{% else %}
+		<a href="{{ url_for('login') }}"><button class="navbutton">Log in</button></a>
+	{% endif %}
+	</div>
+
+	<div id="header">
+		<img src="../static/CFPlogo.jpg">
+		<div id="triangle"><div class="arrow-down"></div></div>
+	</div>
+
+	<div id="content">
+<!--		{% with messages = get_flashed_messages() %}
+		  {% if messages %}
+		    <ul class="flashes">
+		    {% for message in messages %}
+		      <li>{{ message }}</li>
+		    {% endfor %}
+		    </ul>
+		  {% endif %}
+		{% endwith %} -->
+		{% block content %}{% endblock %}
+	</div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js" type="text/javascript"></script>
+		<script type="text/javascript">	 
+			$(document).ready(function(){
+			{% for f in finishedapplicants %}
+		        $(".slidingDiv{{f.user_id}}").hide();
+		        $(".show_hide{{f.user_id}}").show();
+		 
+				$('.show_hide{{f.user_id}}').click(function(){
+					$(".slidingDiv{{f.user_id}}").slideToggle();
+					return false;
+				});
+			{% endfor %}
+			});	 
+		</script>
+</body>
+</html>

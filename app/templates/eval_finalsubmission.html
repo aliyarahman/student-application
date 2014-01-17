@@ -1,0 +1,36 @@
+{% extends "selectorbase.html" %}
+{% block content %}
+
+
+	<div class="contentholder">
+		{% if current_user.are_evals_complete() %}
+			<div class="formheader"><h2>Thank you</h2></div>
+			<br><br><p>Looks like your recommendations are all complete. If you're sure you are ready to submit them, click the button below.</p>
+
+			<br><br><br><br>
+			</div></div>
+			<a href="{{url_for('eval_received')}}">
+				<button class="advance" type="button">
+					<span id="finished">SUBMIT</span>Click to submit your evaluations.
+				</button>
+			</a>
+		{% else %}
+			<div class="formheader"><h2>You're almost done</h2>
+			<br><br><p>It looks like you still have an evaluation to finish.</p>
+			</div>
+
+			<br><br><br><br>
+				</div></div>
+			<a href="{{url_for('evaluate_index')}}">
+				<button class="advance" type="button">
+					<span id="finished">GO BACK</span>Click to return to your applicants.
+				</button>
+			</a>
+
+			<br><br><br><br>
+
+		{% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "recloginbase.html" %}
+{% block content %}
+
+
+	<div class="loginerror">
+		{% if form.errors %}
+		<p style="color:red">Looks like there's something missing:<br />
+			{% for field_name, field_errors in form.errors|dictsort if field_errors %}
+				{% for error in field_errors %}
+				<br /><span style="margin-left:15px">- {{ error }}</span>
+				{% endfor %}
+			{% endfor %}
+		</p>
+		{% endif %}
+	</div>
+
+	<div class="contentholder">
+		<h2>Log in to submit a Code for Progress recommendation</h2>
+	<div id="loginbox">
+		<form action="" method="post" name="login">
+			{{form.hidden_tag()}}
+			<p><label for="username" id="username">Email</label>{{form.email(size=30)}}
+			<p><label for="password" id="password">Password</label>{{form.password(size=30)}}</p>
+			<p><button type="submit" value="LOG IN" style="margin-left:100px">LOG IN</button>
+			<p id="forgot" style="margin-left:100px">Forgot your username or password? <a href="{{ url_for('rec_forgot')}}"><u>Click here</a></u>.</p>
+		</form>
+	</div>
+		
+{%endblock %}

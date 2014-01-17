@@ -5,6 +5,8 @@
 		{% if current_user.profile_complete() and current_user.short_questions_complete() and current_user.tech_questions_complete() and current_user.recommendations_complete() %}
 			<div class="formheader"><h2>Congratulations!</h2></div>
 			<p>Looks like all of your sections are complete.</p>
+			<p>Before you submit your application, please check over your answers one last time. You won't be able to change them after you submit, so make sure they are the ones you want the committee to see!</p>
+			<p>Also, please check to make sure you've given us the correct email addresses for your recommenders, since that's where we'll send their login info. After you submit, you will be able to log on to this site to see which recommenders have completed their parts - and to see which ones might need a reminder. Plan to check back a couple of times before January 27th, to help make sure that we have all your full application.</p>
 			</div>
 			<br><br><br><br>
 			<a href="{{url_for('received')}}">

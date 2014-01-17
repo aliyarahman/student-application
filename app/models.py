@@ -67,6 +67,8 @@ class User(db.Model):
 	timestamp = db.Column(db.DateTime)
 	application_complete = db.Column(db.Integer, default = 0)
 	recommendations = db.relationship('Recommendation', backref = 'requester', lazy = 'dynamic')
+	role = db.Column(db.Integer)	
+	all_recs_complete = db.Column(db.Integer)
 
 	def __repr__(self):
 		return '<User %r>' % (self.email)
@@ -104,70 +106,56 @@ class User(db.Model):
 		return False
 
 	def recommendations_complete(self):
-		if self.rec1firstname and self.rec1lastname and self.rec1email and self.rec1phone \
-		   and self.rec1how and self.rec2firstname and self.rec2lastname and self.rec2email \
-		   and self.rec2phone and self.rec2how and self.rec3firstname and self.rec3lastname \
-		   and self.rec3email and self.rec3phone and self.rec3how:
+		if self.rec1firstname and self.rec1lastname and self.rec1email and self.rec1phone and \
+		   self.rec1how and self.rec2firstname and self.rec2lastname and self.rec2email and \
+		   self.rec2phone and self.rec2how and self.rec3firstname and self.rec3lastname and \
+		   self.rec3email and self.rec3phone and self.rec3how:
 		   return True
 		return False
 
 
-class Recommender(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	email = db.Column(db.String(45), unique=True)
-	password = db.Column(db.String(45))
-	firstname = db.Column(db.String(45))
-	lastname = db.Column(db.String(45))
-	phone = db.Column(db.String(45))
-	timestamp = db.Column(db.DateTime)
-	all_recs_complete = db.Column(db.Integer, default = 0)
-	recommendations = db.relationship('Recommendation', backref = 'author', lazy = 'dynamic')
-
-	def __repr__(self):
-		return '<Recommender %r>' % (self.email)
-
-	def is_active(self):
-		return True
-
-	def is_authenticated(self):
-		return True
-
-	def is_anonymous(self):
-		return False
-
-	def get_id(self):
-		return self.id
-
-	def __unicode__(self):
-		return self.email
-
-	def are_recs_complete(self):
+        def are_recs_complete(self):
+                recommenders_recommendations = Recommendation.query.filter_by(recommender_id = self.user_id).all()
 		count_incompletes=0
-		for r in self.recommendations:
+		for r in recommenders_recommendations:
 			if r.recommendation_complete == 0:
 				count_incompletes += 1
-		if count_incompletes == 0:
-			self.all_recs_complete = 1
+                if count_incompletes == 0:
+                        self.all_recs_complete = 1
+                        db.session.add(self)
+			db.session.commit()
 			return True
-		else:
-			self.all_recs_complete = 0
+                else:
+                     	self.all_recs_complete = 0
+                        db.session.add(self)
+			db.session.commit()
 			return False
 
-	def get_students(self):
-		students = []
-		for r in self.recommendations:
-			s = User.query.get(r.student_id)
-			students.append(s)
+        def get_students(self):
+		s = []
+		applicant1 = User.query.filter_by(role = 1, rec1email = self.email).first()
+		applicant2 = User.query.filter_by(role = 1, rec2email = self.email).first()
+		applicant3 = User.query.filter_by(role = 1, rec3email = self.email).first()
+		if applicant1:
+			s.append(applicant1)
+		if applicant2:
+			s.append(applicant2)
+		if applicant3:
+			s.append(applicant3)
+		students = [(User.query.get(1)),applicant3]
 		return students
-		
-	def recommendation_is_complete_for(self, student):
-		return Recommendation.query.filter_by(recommender_id = self.id, student_id = student.user_id).first().recommendation_complete()
 
-		
+        def recommendation_is_complete_for(self, student):
+                rec = Recommendation.query.filter_by(recommender_id = self.user_id, student_id = student.user_id).first()
+		if rec.recommendation_complete ==1:
+			return True
+		else:
+			return False	
+
 class Recommendation(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	recommender_id = db.Column(db.Integer, db.ForeignKey('recommender.id'))
 	student_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
+	recommender_id = db.Column(db.Integer)
 	recq1 = db.Column(db.Integer)
 	recq1ex = db.Column(db.Text)
 	recq2 = db.Column(db.Integer)
@@ -180,18 +168,20 @@ class Recommendation(db.Model):
 	recq5ex = db.Column(db.Text)
 	recq6 = db.Column(db.Integer)
 	recq6ex = db.Column(db.Text)
-	rec7 = db.Column(db.Text)
-	rec8 = db.Column(db.Text)
+	recq7 = db.Column(db.Text)
+	recq8 = db.Column(db.Text)
 	recommendation_complete = db.Column(db.Integer, default = 0)
 	timestamp = db.Column(db.DateTime)
 	
 	def __repr__(self):
 		return '<Recommendation %r>' % (self.id)
 		
-	def recommendation_complete(self):
+	def is_recommendation_complete(self):
 		if self.recq1 and self.recq1ex and self.recq2 and self.recq2ex and self.recq3 and self.recq3ex and \
 			self.recq4 and self.recq4ex and self.recq5 and self.recq5ex and self.recq6 and self.recq6ex and \
-			self.rec7 and self.rec8:
+			self.recq7 and self.recq8:
 			self.recommendation_complete = 1
+			db.session.add(self)
+			db.session.commit()
 			return True
 		return False

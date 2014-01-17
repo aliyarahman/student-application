@@ -1,6 +1,6 @@
 from flask.ext.wtf import Form
 from app import db
-from models import User, Recommender, Recommendation
+from models import User, Recommendation
 from wtforms import TextField, PasswordField, IntegerField, TextAreaField, RadioField, BooleanField
 from wtforms.validators import Required, Email, EqualTo, Length, ValidationError, Optional
 
@@ -11,15 +11,58 @@ class LoginForm(Form):
 
 	def validate_email(self, field):
 		user = self.get_user()
-
 		if user is None:
 			raise ValidationError('Invalid User')
-
 		if user.password != self.password.data:
 			raise ValidationError('Invalid Password')
 
 	def get_user(self):
 		return db.session.query(User).filter_by(email=self.email.data).first()
+
+
+class CreateProfileForm(Form):
+	firstname = TextField('firstname', validators = [Required(message='We need to know your first name!')])
+	lastname = TextField('lastname', validators = [Required(message='We need to know your last name!')])
+	email = TextField('email', validators = [Required(message="We need your email address!"), Email(message="Hmm, your email address doesn't look like an email address.")])
+	password = PasswordField('password')
+	retypepassword = PasswordField('retypepassword')
+	phone = TextField('phone', validators = [Required(message="We need your phone number!")])
+	address = TextField('address', validators = [Required(message="We need your address!")])
+	city = TextField('city', validators = [Required(message="We'd like to know what city you live in.")])
+	state = TextField('state', validators = [Required(message="We'd like to know what state you live in.")])
+	zipcode = IntegerField('zipcode', validators = [Required(message="We need your zipcode!")])
+	appsource = TextAreaField('appsource', validators = [Required(message="Please tell us how you heard about this application.")])
+	languages = TextAreaField('languages', validators = [Required(message="Please tell us what language(s) you speak.")])
+	culturalgroups = TextAreaField('culturalgroups', validators = [Required(message="Please tell us what groups you identify with.")])
+	working = TextAreaField('working', validators = [Required(message="Please tell us about your current work.")])
+	school = TextAreaField('school', validators = [Required(message="Please answer the last question.")])
+
+	def validate_password(self, field):
+		user = self.get_user()
+
+		if not user and self.password.data == '':
+			raise ValidationError("Please enter a password")
+
+		# hack to prevent overwrite of password with blank on profile update
+		if user and (self.password.data == '' or self.password.data == None):
+			self.password.data = user.password
+			self.retypepassword.data = user.password
+
+		if self.password.data != self.retypepassword.data:
+			raise ValidationError("Your passwords don't match - try retyping them.")
+
+		if len(self.password.data) < 8:
+			raise ValidationError("Your password is a little short - pick one that's at least 8 characters long.")
+
+	def get_user(self):
+		return db.session.query(User).filter_by(email=self.email.data).first()
+
+
+
+
+
+
+
 
 class ProfileForm(Form):
 	firstname = TextField('firstname', validators = [Required(message='We need to know your first name!')])
@@ -37,6 +80,7 @@ class ProfileForm(Form):
 	culturalgroups = TextAreaField('culturalgroups', validators = [Required(message="Please tell us what groups you identify with.")])
 	working = TextAreaField('working', validators = [Required(message="Please tell us about your current work.")])
 	school = TextAreaField('school', validators = [Required(message="Please answer the last question.")])
+
 
 	def validate_password(self, field):
 		user = self.get_user()
@@ -132,12 +176,7 @@ class RecLoginForm(Form):
 			raise ValidationError('Invalid Password')
 
 	def get_recommender(self):
-		return db.session.query(Recommender).filter_by(email=self.email.data).first()
-
-
-
-
-
+		return db.session.query(User).filter_by(email=self.email.data, role = 2).first()
 
 
 
@@ -154,7 +193,10 @@ class RecommenderForm(Form):
 	recq5ex = TextAreaField('recq5ex', validators = [Required(message="5")])
 	recq6 = RadioField('recq6', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Required()])
 	recq6ex = TextAreaField('recq6ex', validators = [Required(message="6")])
-	rec7 = TextAreaField('rec7', validators = [Required(message="7")])
-	rec8 = TextAreaField('rec8', validators = [Required(message="8")])
+	recq7 = TextAreaField('recq7', validators = [Required(message="7")])
+	recq8 = TextAreaField('recq8', validators = [Required(message="8")])
 
-
+#new
+class ChangeRecommenderContact(Form):
+	email = TextField('email', validators = [Required(message="your recommender's email address"), Email("Hmm, this doesn't look like an email address.")])
+#new

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="contentholder">	
+	<div class="formheader">	
+		<h2>Recommend this applicant</h2>
+		<p>Please fill out the five questions below. Your answers may be as long or as short as you'd like, as long as they fit in the box provided.</p>		
+		<p>Some questions ask for both a numerical rating and an explanation of that rating. Please fill out both of these parts.</p>
+		{%if form.errors %}<br><p style="color:red">Looks like something's missing from this recommendation.<br>{% endif %}
+	</div>
+
+	<div id="recommendapplicant">
+		<form action="" method="post" name="recommendapplicant">
+		{{form.hidden_tag()}}
+			<div id="recbasics" class="recquestions">
+				<p><br><label>On a scale of 1-5 (where 1 means "This applicant doesn't demonstrate this quality at all" and 5 means "This applicant strongly exemplifies this quality"), please rate the applicant on their:</label></p>
+				
+				<div class="mcquestion"><span class="justmc">1. Commitment to racial, gender, and/or economic justice</p>
+					<p> {% for subfield in form.recq1 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p></span>
+				<p class="explain">Give us an example that explains your rating:</b></p><p>{{form.recq1ex}}</p>
+				</div>
+				
+				
+				<div class="mcquestion"><span class="justmc">2. Creativity in problem solving</p>
+					<p> {% for subfield in form.recq2 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p>
+				<p class="explain">Give us an example that explains your rating:</b></p><p>{{form.recq2ex}}</p>
+				</div>
+
+
+				<div class="mcquestion"><span class="justmc">3. Patience in working through obstacles</p>
+					<p> {% for subfield in form.recq3 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p>
+				<p class="explain">Give us an example that explains your rating:</b></p><p>{{form.recq3ex}}</p>
+				</div>
+
+				
+				<div class="mcquestion"><span class="justmc">4. Demonstrated interest in teaching and mentoring others</p>
+					<p> {% for subfield in form.recq4 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p>
+				<p class="explain">Give us an example that explains your rating:</b></p><p>{{form.recq4ex}}</p>
+				</div>
+
+
+				<div class="mcquestion"><span class="justmc">5. Curiosity around how things work (likes to take things apart, dig into the structure of groups or organizations, find out what "makes people tick")</p>
+					<p> {% for subfield in form.recq5 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p>
+				<p class="explain">Give us an example that explains your rating:</b></p><p>{{form.recq5ex}}</p>
+				</div>
+
+				
+				<div class="mcquestion"><span class="justmc">6. Demonstrated willingness to ask for help</p>
+					<p> {% for subfield in form.recq6 %}<tr><td>{{ subfield }}</td><td>{{ subfield.label }}</td></tr>{% endfor %}</p>
+				<p class="explain">Give us an example that explains your rating:</b></p><p>{{form.recq6ex}}</p>
+				</div>
+				
+				<div class="mcquestion">7. We are committed to our students as professionals - but we also want to support them as members of our community. If they are accepted to the program, what is one specific challenge faced by this applicant that we should keep in mind?</p><p>{{form.rec7}}</p></div>
+				<div class="mcquestion">8. What specific things can we do to best support this applicant, if they are accepted to the program?</p><p>{{form.rec8}}</p></div>
+
+				<br><br><button type="submit" class="advance"><span id="finished">FINISHED?</span>Click here to save your changes.</button>
+		</form>
+	</div>
+		
+</div>
+
+{% endblock %}

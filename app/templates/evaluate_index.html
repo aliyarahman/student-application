@@ -1,0 +1,34 @@
+{% extends "selectorbase.html" %}
+
+{% block content %}
+
+<div class = "contentholder">
+{% if user.all_evaluations_complete ==1 %}
+	<h2 class="formheader">Thank you!</h2>
+	<p>Thanks for finishing your evaluations!</p>
+
+{% else %}
+<h2 class="formheader">Welcome</h2>
+<p><br><br>Thank you for giving your time to help us find an excellent class for the 2014 Code for Progress program. Your assigned applicants appear below, and their buttons will turn green when you have finished an evaluation. Click the "Finished" button when you've finished all 15.</p>
+<p>Please choose one to begin evaluating. You can review an online copy of our selection criteria <a href="{{link}}"><u>here</u></a>:</p>
+
+		<div id="applicantbuttonholder">
+			{% for e in evals %}
+			<a href="{{ url_for('evaluate', student_id=e.student_id) }}">
+			<div class="applicantbutton {% if e.is_evaluation_complete() %}finished{% endif %}">Applicant {{e.student_id}}<div class="namespacer"></div><div class="namespacer">
+			{% if e.is_evaluation_complete()==False %} Begin evaluation
+			{% else %} {{e.critical }} | {{e.mission}} | {{e.community}} | {{e.inspire}} | {{e.yesno}}
+			{% endif %}
+			</div></div>
+			</a>
+			{% endfor %}
+		</div>
+</div></div>
+	<br><br><br><br><br><a href="{{ url_for('eval_finalsubmission') }}"><div class="advance"><span id="finished">FINISHED?</span>Click here to submit your evaluations.</div></a>
+
+</ol></div>
+
+
+{% endif %}
+
+{% endblock %}

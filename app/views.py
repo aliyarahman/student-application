@@ -1,19 +1,14 @@
-from flask import render_template, redirect, flash, request
+from flask import render_template, redirect, flash, request, session
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from app import app, login_manager, db
-from models import User, Recommender, Recommendation
-from forms import LoginForm, ProfileForm, RecLoginForm, ShortanswerForm, RecommendationsForm, TechskillsForm, ChecklistForm, RecommenderForm
-
+from models import User, Recommendation
+from forms import LoginForm, ProfileForm, RecLoginForm, ShortanswerForm, RecommendationsForm, TechskillsForm, ChecklistForm, RecommenderForm, ChangeRecommenderContact, CreateProfileForm
+from emails import new_application_submitted, notify_applicant, notify_recommenders, remind_recommender
 
 @login_manager.user_loader
 def load_user(userid):
-	return Recommender.query.get(userid)
+	return User.query.get(userid)
 
-@app.route('/', methods= ['GET'])
-@app.route('/index', methods= ['GET'])
-@login_required
-def index():
-	return render_template("index.html")
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -21,17 +16,122 @@ def login():
 	if form.validate_on_submit():
 		user = form.get_user()
 		login_user(user)
-		return render_template('index.html', user = user)
+		if current_user.role == 2:
+			return redirect('/rec_index')
+		if current_user.role == 0:
+			return redirect('/staffview')
+		recs=[]
+		if current_user.application_complete ==1:
+			recs.append(User.query.filter_by(email = current_user.rec1email).first())
+			recs.append(User.query.filter_by(email = current_user.rec2email).first())
+			recs.append(User.query.filter_by(email = current_user.rec3email).first())
+		return render_template('index.html', recs = recs)
 	return render_template('login.html',
 		form=form)
+
+
+@app.route('/', methods= ['GET', 'POST'])
+@app.route('/index', methods= ['GET', 'POST'])
+@login_required
+def index():
+	if current_user.role ==2:
+		return redirect('/rec_index')
+	if current_user.role ==0:
+		return redirect('/staffview')
+	recs = []
+	if current_user.application_complete ==1:
+		recs.append(User.query.filter_by(email = current_user.rec1email).first())
+		recs.append(User.query.filter_by(email = current_user.rec2email).first())
+		recs.append(User.query.filter_by(email = current_user.rec3email).first())
+	return render_template("index.html", recs = recs)
+
+
+#this is the new functionality for users to view their recommenders
+@app.route('/myrecommender/<recommender_id>', methods= ['GET', 'POST'])
+@login_required
+def myrecommender(recommender_id):
+	if current_user.role ==2:
+		return redirect('/rec_index')
+	if current_user.role ==0:
+		return redirect('/staffview')
+	#get the recommender sent from the click on index and put it into the form
+	recommender = User.query.filter_by(user_id = recommender_id).first()
+	form = ChangeRecommenderContact(obj=recommender)
+	if recommender.email == current_user.rec1email:
+		whichRec = 1
+	if recommender.email == current_user.rec2email:
+		whichRec = 2
+	if recommender.email == current_user.rec3email:
+		whichRec = 3
+	if form.validate_on_submit():
+		form.populate_obj(recommender)
+		#commits new recommender info to the database - and this is working
+		db.session.add(recommender)
+		db.session.commit()
+		
+		#reload the recommender and put its email into the appropriate place for the current_user
+		newrec = User.query.get(recommender.user_id)
+		if whichRec==1:
+			current_user.rec1email = newrec.email
+		if whichRec==2:
+			current_user.rec2email = newrec.email
+		if whichRec==3:
+			current_user.rec3email = newrec.email
+		db.session.add(current_user)			
+		db.session.commit()
+		#send email to the recommender
+		remind_recommender(current_user, recommender)
+
+		return redirect('/index')
+	return render_template("myrecommender.html", recommender = recommender, form = form)
+#this is the new recommender functionality
+
+
 
 @app.route('/checklist', methods = ['GET', 'POST'])
 def checklist():
 	form = ChecklistForm()
 	if form.validate_on_submit():
-		return redirect('/profile')
+		return redirect('/createprofile')
 	return render_template('checklist.html',
 		form=form)
+
+
+
+@app.route('/createprofile', methods = ['GET', 'POST'])
+def createprofile():
+	if current_user.is_authenticated():
+		user = current_user
+	else:
+		user = None
+	
+	form = CreateProfileForm(obj=user)
+
+	if not form.password or form.password == '':
+		del form.password
+	
+	if form.validate_on_submit():
+		if user:
+			flash('Successfully updated your profile.')
+		else:
+			user = User()
+			user.role = 1
+			flash('Congratulations, you just created an account!')
+
+		form.populate_obj(user)
+		db.session.add(user)
+		db.session.commit()
+
+		if not current_user.is_authenticated():
+			login_user(user)
+
+		return redirect('/')
+
+	return render_template('createprofile.html', form=form)
+
+
+
+
 
 @app.route('/profile', methods = ['GET', 'POST'])
 def profile():
@@ -39,18 +139,18 @@ def profile():
 		user = current_user
 	else:
 		user = None
-
+	
 	form = ProfileForm(obj=user)
 
 	if not form.password or form.password == '':
 		del form.password
-
+	
 	if form.validate_on_submit():
 		if user:
 			flash('Successfully updated your profile.')
 		else:
 			user = User()
-
+			user.role = 1
 			flash('Congratulations, you just created an account!')
 
 		form.populate_obj(user)
@@ -67,6 +167,11 @@ def profile():
 @app.route('/shortanswers', methods = ['GET', 'POST'])
 @login_required
 def shortanswers():
+        if current_user.role ==2:
+                return redirect('/rec_index')
+
+	if current_user.application_complete ==1:
+		return redirect('/index')
 	form = ShortanswerForm(obj=current_user)
 
 	if form.validate_on_submit():
@@ -83,6 +188,11 @@ def shortanswers():
 @app.route('/techskills', methods = ['GET', 'POST'])
 @login_required
 def techskills():
+        if current_user.role ==2:
+                return redirect('/rec_index')
+
+        if current_user.application_complete ==1:
+                return redirect('/index')
 	form = TechskillsForm(obj=current_user)
 
 	if form.validate_on_submit():
@@ -101,6 +211,12 @@ def techskills():
 @app.route('/recommendations', methods = ['GET', 'POST'])
 @login_required
 def recommendations():
+        if current_user.role ==2:
+                return redirect('/rec_index')
+
+        if current_user.application_complete ==1:
+                return redirect('/index')
+
 	form = RecommendationsForm(obj=current_user)
 	
 	if form.validate_on_submit():
@@ -116,51 +232,86 @@ def recommendations():
 		form=form)
 
 @app.route('/finalsubmission')
+@login_required
 def finalsubmission():
+        if current_user.role ==2:
+                return redirect('/rec_index')
+
+        if current_user.application_complete ==1:
+                return redirect('/index')
+
 	return render_template("finalsubmission.html")
 
 @app.route('/help')
 def help():
 	return render_template("help.html")
 
+@app.route('/staffview', methods = ['GET', 'POST'])
+@login_required
+def staffview():
+	if current_user.role ==1:
+		return redirect('/index')
+	if current_user.role ==2:
+		return redirect('/rec_index')
+	if current_user.role ==0:
+		applicants = User.query.filter_by(role = 1).all()
+		finishedapplicants = User.query.filter_by(role = 1, application_complete =1).all()
+		total_apps = len(applicants)
+		complete_apps = len(finishedapplicants)
+		return render_template("who_is_done.html", finishedapplicants = finishedapplicants, total_apps = total_apps, complete_apps = complete_apps)
+
+
 @app.route('/received')
+@login_required
 def received():
+        if current_user.role ==2:
+                return redirect('/rec_index')
+        if current_user.application_complete ==1:
+                return redirect('/index')
+
+	current_user.application_complete =1
+	db.session.add(current_user)
+	db.session.commit()
 	make_new_recommenders()
 	make_blank_recommendations()
-#email triggers to info@codeforprogress.org and to recommenders go here, if we want to develop these
+	completed_app_count = len(User.query.filter_by(application_complete =1).all())
+	new_application_submitted(current_user, completed_app_count)
+	notify_applicant(current_user)
+	notify_recommenders(current_user)
 	return render_template("received.html")
 
 def make_new_recommenders():
-	recommender1 = Recommender.query.filter_by(email = current_user.rec1email).first()
-	recommender2 = Recommender.query.filter_by(email = current_user.rec2email).first()
-	recommender3 = Recommender.query.filter_by(email = current_user.rec3email).first()
+	recommender1 = User.query.filter_by(email = current_user.rec1email, role = 2).first()
+	recommender2 = User.query.filter_by(email = current_user.rec2email, role = 2).first()
+	recommender3 = User.query.filter_by(email = current_user.rec3email, role = 2).first()
 	if not recommender1:
-		recommender1 = Recommender(firstname = current_user.rec1firstname, lastname = current_user.rec1lastname, email = current_user.rec1email, phone = current_user.rec1phone, password = generate_recommender_password())
+		recommender1 = User(firstname = current_user.rec1firstname, lastname = current_user.rec1lastname, email = current_user.rec1email, phone = current_user.rec1phone, password = generate_recommender_password(current_user.rec1firstname, current_user.rec1lastname), role =2, all_recs_complete =0)
 		db.session.add(recommender1)
 	if not recommender2:
-		recommender2 = Recommender(firstname = current_user.rec2firstname, lastname = current_user.rec1lastname, email = current_user.rec2email, phone = current_user.rec2phone, password = generate_recommender_password())
+		recommender2 = User(firstname = current_user.rec2firstname, lastname = current_user.rec2lastname, email = current_user.rec2email, phone = current_user.rec2phone, password = generate_recommender_password(current_user.rec2firstname, current_user.rec2lastname), role = 2, all_recs_complete =0)
 		db.session.add(recommender2)
 	if not recommender3:
-		recommender3 = Recommender(firstname = current_user.rec3firstname, lastname = current_user.rec1lastname, email = current_user.rec3email, phone = current_user.rec3phone, password = generate_recommender_password())
+		recommender3 = User(firstname = current_user.rec3firstname, lastname = current_user.rec3lastname, email = current_user.rec3email, phone = current_user.rec3phone, password = generate_recommender_password(current_user.rec3firstname, current_user.rec3lastname), role = 2, all_recs_complete =0)
 		db.session.add(recommender3)
 	db.session.commit()
 
 def make_blank_recommendations():
-	firstrec = Recommendation(student_id = current_user.user_id, recommender_id = Recommender.query.filter_by(email = current_user.rec1email).first().id)
-	secondrec = Recommendation(student_id = current_user.user_id, recommender_id = Recommender.query.filter_by(email = current_user.rec2email).first().id)
-	thirdrec = Recommendation(student_id = current_user.user_id, recommender_id = Recommender.query.filter_by(email = current_user.rec3email).first().id)
+	firstrec = Recommendation(student_id = current_user.user_id, recommender_id = User.query.filter_by(email = current_user.rec1email, role =2).first().user_id)
+	secondrec = Recommendation(student_id = current_user.user_id, recommender_id = User.query.filter_by(email = current_user.rec2email, role = 2).first().user_id)
+	thirdrec = Recommendation(student_id = current_user.user_id, recommender_id = User.query.filter_by(email = current_user.rec3email, role = 2).first().user_id)
 	db.session.add(firstrec)
 	db.session.add(secondrec)
 	db.session.add(thirdrec)
 	db.session.commit()
 
-def generate_recommender_password():
+def generate_recommender_password(firstname, lastname):
 	import random
-	pieces = [random.choice([current_user.firstname,current_user.lastname]),str(random.randint(1000,9999))]
+        pieces = [random.choice([firstname,lastname]),str(random.randint(1000,9999))]
 	i = random.choice(pieces)
 	password = i
 	pieces.remove(i)
 	password = i+pieces[0]
+	password = password.replace(" ","")
 	return password
 
 @app.route('/forgot')
@@ -183,21 +334,46 @@ def rec_login():
 	return render_template('rec_login.html',
 		form=form)
 
-
 @app.route('/rec_index', methods= ['GET'])
 @login_required
 def rec_index():
-	students=current_user.get_students()
-	return render_template("rec_index.html", students = students) #pass the students' names to the recommener's menu
-
-
-
+        if current_user.role ==1:
+                return redirect('/index')
+	students = []
+	recs =[]
+	student1 = (User.query.filter_by(rec1email = current_user.email, application_complete =1).all())
+        student2 = (User.query.filter_by(rec2email = current_user.email, application_complete =1).all())
+	student3 = (User.query.filter_by(rec3email = current_user.email, application_complete =1).all())
+	recommendations = []	
+	if student1:
+		for s1 in student1:
+			students.append(s1)
+	if student2:
+		for s2 in student2:
+			students.append(s2)
+	if student3:
+		for s3 in student3:
+			students.append(s3)
+	for s in students:
+		recommendation = Recommendation.query.filter_by(student_id = s.user_id, recommender_id = current_user.user_id).first()
+		if recommendation.is_recommendation_complete():
+			recommendation.recommendation_complete =1
+		recs.append(recommendation)
+	db.session.add(current_user)
+	db.session.commit()
+	return render_template('rec_index.html',
+		students=students, recs = recs)
 
 @app.route('/rec_form/<student_id>', methods = ['GET', 'POST'])
 @login_required
 def rec_form(student_id):#pass in the student this is for
+        if current_user.role ==1:
+                return redirect('/index')
+
+        if current_user.all_recs_complete ==1:
+                return redirect('/rec_index')
 	student = User.query.get(student_id) #look up the recommendation that is for this student and this recommender
-	recommendation = Recommendation.query.filter_by(student_id=student.user_id, recommender_id=current_user.id).first() #get the recommendation that matches this student and this recommender
+	recommendation = Recommendation.query.filter_by(student_id=student.user_id, recommender_id=current_user.user_id).first() #get the recommendation that matches this student and this recommender
 	form = RecommenderForm(obj=recommendation) #pull up the form for this recommendation
 	if form.validate_on_submit():
 		form.populate_obj(recommendation)
@@ -209,15 +385,27 @@ def rec_form(student_id):#pass in the student this is for
 @app.route('/rec_finalsubmission')
 @login_required
 def rec_finalsubmission():
-	check = current_user.are_recs_complete()
-	return render_template("rec_finalsubmission.html", check = check)
+        if current_user.role ==1:
+                return redirect('/index')
+        if current_user.all_recs_complete ==1:
+                return redirect('/rec_index')
+	current_user.are_recs_complete()
+	db.session.add(current_user)
+	db.session.commit()
+	return render_template("rec_finalsubmission.html")
 
 @app.route('/rec_help')
 def rec_help():
+        if current_user.role ==1:
+                return redirect('/index')
+
 	return render_template("rec_help.html")
 
 @app.route('/rec_forgot')
 def rec_forgot():
+        if current_user.role ==1:
+                return redirect('/index')
+
 	return render_template("rec_forgot.html")
 
 @app.route('/rec_logout')
@@ -229,4 +417,10 @@ def rec_logout():
 @app.route('/rec_received')
 @login_required
 def rec_received():
+        if current_user.role ==1:
+                return redirect('/index')
+        if current_user.all_recs_complete ==0:
+		return redirect('/rec_finalsubmission')
+	if current_user.all_recs_complete ==1:
+                return redirect('/rec_index')
 	return render_template("rec_received.html")
