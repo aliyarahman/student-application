@@ -1,9 +1,10 @@
 from flask import render_template, redirect, flash, request, session
 from flask.ext.login import login_user, logout_user, login_required, current_user
-from app import app, login_manager, db
+from app import app, login_manager, db, mail
 from models import User, Recommendation
-from forms import LoginForm, ProfileForm, RecLoginForm, ShortanswerForm, RecommendationsForm, TechskillsForm, ChecklistForm, RecommenderForm, ChangeRecommenderContact, CreateProfileForm
+from forms import LoginForm, ProfileForm, RecLoginForm, ShortanswerForm, RecommendationsForm, TechskillsForm, ChecklistForm, RecommenderForm, ChangeRecommenderContact, CreateProfileForm, ResetPasswordForm, ForgotPasswordForm
 from emails import new_application_submitted, notify_applicant, notify_recommenders, remind_recommender
+from itsdangerous import Signer
 
 @login_manager.user_loader
 def load_user(userid):
@@ -254,7 +255,6 @@ def staffview():
 		complete_apps = len(finishedapplicants)
 		return render_template("who_is_done.html", finishedapplicants = finishedapplicants, total_apps = total_apps, complete_apps = complete_apps)
 
-
 @app.route('/received')
 @login_required
 def received():
@@ -308,15 +308,60 @@ def generate_recommender_password(firstname, lastname):
 	password = password.replace(" ","")
 	return password
 
-@app.route('/forgot')
+@app.route('/forgot', methods = ['GET', 'POST'])
 def forgot():
-	return render_template("forgot.html")
+	form = ForgotPasswordForm(request.form)
+
+	if request.method == "POST" and form.validate():
+		s = Signer(app.config['SECRET_KEY'])
+		token = s.sign(request.form['email'])
+
+		mail.send_message(
+			subject='Code For Progress Password Reset',
+			html='<a href="http://apply.codeforprogress.org/reset_password?token='+token+'">Click here</a> to reset your password.',
+			recipients=[request.form['email']],
+			sender='info@codeforprogress.org'
+		)
+		return redirect('/forgot_confirmation')
+
+	return render_template("forgot.html", form=form)
+
+@app.route('/forgot_confirmation', methods = ['GET'])
+def forgot_confirmation():
+	return render_template("forgot_confirmation.html")
+
+@app.route('/reset_password', methods = ['GET', 'POST'])
+def reset_password():
+	form = ResetPasswordForm(request.form)
+
+	if request.method == "POST" and form.validate():
+		token = form.token.data
+
+		s = Signer(app.config['SECRET_KEY'])
+		email = s.unsign(token)
+
+		user = User.query.filter_by(email=email).first()
+
+		if user:
+			user.set_password(form.password.data)
+			login_user(user)
+
+			return redirect("/")
+		else:
+			return render_template("reset_invalid_token.html")
+
+	token = request.args.get('token', None)
+
+	if not token:
+		return render_template("reset_invalid_token.html")
+
+	return render_template("reset_password.html", form=form, token=token)
 
 @app.route('/logout')
 @login_required
 def logout():
 	logout_user()
-	return redirect("http://www.codeforprogress.org")
+	return redirect("/")
 
 @app.route('/rec_login', methods = ['GET', 'POST'])
 def rec_login():

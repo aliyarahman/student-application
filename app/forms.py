@@ -57,13 +57,6 @@ class CreateProfileForm(Form):
 	def get_user(self):
 		return db.session.query(User).filter_by(email=self.email.data).first()
 
-
-
-
-
-
-
-
 class ProfileForm(Form):
 	firstname = TextField('firstname', validators = [Required(message='We need to know your first name!')])
 	lastname = TextField('lastname', validators = [Required(message='We need to know your last name!')])
@@ -102,7 +95,6 @@ class ProfileForm(Form):
 	def get_user(self):
 		return db.session.query(User).filter_by(email=self.email.data).first()
 
-
 class ShortanswerForm(Form):
 	Q01 = TextAreaField('Q01', validators = [Required(message="1")])
 	Q02 = TextAreaField('Q02', validators = [Required(message="2")])
@@ -137,7 +129,6 @@ class TechskillsForm(Form):
 	codingq5 = RadioField('codingq5', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Optional()])
 	codingq6 = RadioField('codingq6', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Optional()])
 
-
 class RecommendationsForm(Form):
 	rec1firstname = TextField('rec1firstname', validators = [Required(message="your first recommender's first name")])
 	rec1lastname = TextField('rec1lastname', validators = [Required(message="your first recommender's last name")])
@@ -154,7 +145,6 @@ class RecommendationsForm(Form):
 	rec3email = TextField('rec3email', validators = [Required(message="your third recommender's phone number")])
 	rec3phone = TextField('rec3phone', validators = [Required(message="your third recommender's phone number")])
 	rec3how = TextAreaField('rec3how', validators = [Required(message="how you know your third recommender")])
-
 	
 class ChecklistForm(Form):
 	check1 =  BooleanField('I understand.', validators=[Required()])
@@ -162,7 +152,6 @@ class ChecklistForm(Form):
 	check3 =  BooleanField('I understand.', validators=[Required()])
 	check4 =  BooleanField('I understand.', validators=[Required()])
 	check5 =  BooleanField('I understand', validators=[Required()])
-
 
 class RecLoginForm(Form):
 	email = TextField('email', validators = [Required(message="We need to know your email address.")])
@@ -177,8 +166,6 @@ class RecLoginForm(Form):
 
 	def get_recommender(self):
 		return db.session.query(User).filter_by(email=self.email.data, role = 2).first()
-
-
 
 class RecommenderForm(Form):
 	recq1 = RadioField('recq1', choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')], validators=[Required()])
@@ -200,3 +187,21 @@ class RecommenderForm(Form):
 class ChangeRecommenderContact(Form):
 	email = TextField('email', validators = [Required(message="your recommender's email address"), Email("Hmm, this doesn't look like an email address.")])
 #new
+
+class ForgotPasswordForm(Form):
+	email = TextField('email', validators = [Required(message="your email address"), Email("Hmm, this doesn't look like an email address.")])
+
+class ResetPasswordForm(Form):
+	password = PasswordField('password')
+	password_confirmation = PasswordField('password_confirmation')
+	token = TextField('token')
+
+	def validate_password(self, field):
+		if self.password.data == '':
+			raise ValidationError("Please enter a password")
+
+		if self.password.data != self.password_confirmation.data:
+			raise ValidationError("Your passwords don't match - try retyping them.")
+
+		if len(self.password.data) < 8:
+			raise ValidationError("Your password is a little short - pick one that's at least 8 characters long.")

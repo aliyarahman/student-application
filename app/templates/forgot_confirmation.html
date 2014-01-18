@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+	
+	<div class="contentholder">
+		<p>Your password reset link has been sent to your email address.  Please check your email, click on the link, and enter a new password.</p>
+	</div>
+	
+	</div>
+	</div>
+	
+	<br><br><br>
+
+	<a href="{{url_for('login')}}"><button class="advance" type="button"><span id="finished">OK?</span>Click to go back to the login screen.</button></a>
+
+
+{% endblock %}

@@ -10,8 +10,9 @@ from app import app, db
 class BaseTest(TestCase):
 	TESTING = True
 
-	def create_app(self):		
+	def create_app(self):
 		app.config['CSRF_ENABLED'] = False
+		app.config['WTF_CSRF_ENABLED'] = False
 
 		app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/apply_test.db'
 
