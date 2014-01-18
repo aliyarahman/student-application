@@ -1,0 +1,140 @@
+{% extends "selectorbase.html" %}
+
+{% block content %}
+
+<div class = "contentholder evaluationtext">
+<header class="formheader"><h2>Applicant {{f.user_id}}</h2></header>
+
+	<h3><a href="#2" class="show_hide2">Personal background (click to read)</h3></a>
+	<div class="slidingDiv2">
+			<b>How did you hear about the Code for Progress application?:</b><br>{{f.appsource}}
+			<p><b>What languages do you speak, and how well do you speak them?: </b><br>{{f.languages}}</p>
+			<p><b>Our mission statement says that we want to train coders from communities "historically excluded" from the tech industry. Are you part of any of these communities, and if so what are they?: </b><br>{{f.culturalgroups}}</p>
+			<p><b>Are you working right now (that could be a job, more than one job, or being a caretaker for someone)? If so, tell us about it.: </b><br>{{f.working}}</p>
+			<p><b>Are you in a college or university program right now, or have you been in one in the past? If so, what certificate or degree did/will you receive, and will you still be in the program in April of next year?: </b><br>{{f.school}}</p>
+		<a href="#2" class="show_hide2"><b><br>(Click to hide this section)</b></a>		
+	</div>
+
+	<h3><a href="#3" class="show_hide3">Application questions (click to read)</h3></a>
+	<div class="slidingDiv3">
+			<b>Shortanswer questions</b>
+				<p><b>1. What will this training help you to do in your community or organization that you can't already do?:</b> <br>{{f.Q01}}</p>
+				<p><b>2. What kind of employment do you plan to look for after you finish the residency for this program?:</b> <br>{{f.Q02}}</p>
+				<p><b>3. Think about a real person who taught you about justice. Who are/were they, and what specific things did you learn from them?:</b> <br>{{f.Q03}}</p>
+				<p><b>4. (This question is based on your answer to Question 3.) </i>What have you done to put what you learned from them into action?:</b> <br>{{f.Q04}}</p>
+				<p><b>5. Who is someone you want to ask to mentor you, and why? (This can be someone in your personal, work, or community life - but it should be a person you might actually ask.):</b> <br>{{f.Q05}}</p>
+				<p><b>6. Who is someone that you are currently mentoring? What things do you do to mentor them?:</b> <br>{{f.Q06}}</p>
+				<p><b>7. Think of a person whose leadership you admire, but whose style of leading is different than your own. What do you admire about their leadership, and how does is it different from yours?:</b> <br>{{f.Q07}}</p>
+				<p><b>8. What's an excellent piece of constructive criticism that you've gotten? What made it so good?:</b> <br>{{f.Q08}}</p>
+				<p><b>9. Think about a problem that:<ul><li>affects people in your community or organization</li><li>makes it harder for people to get the things they need</li><li>you might be able to help solve by making an app, computer program, or system for passing around information.</li></ul>Describe that problem and explain why it's important for us to start solving it (don't tell us about the app yet).:</b> <br>{{f.Q09}}</p>
+				<p><b>10. (Use your answer to question 9 for this question). If you could make an app, computer program, or computer system for giving people information that might help to solve the problem, what would it let people do? You don't have to know how we could make it - just decribe how someone would use it.:</b> <br>{{f.Q10}}</p>
+				<p><b>11. A lot of us already use apps and computer programs in different parts of our lives, even if we don't use computers very often. We might have a Facebook page, use a phone that has a contact list or address book, or have information about us stored on a website or computer because of a service we use (like a library card, a card we use to pay for groceries, or a file where a social services agency keeps information about us). Name one app, program or computer system that you use, and explain one way that it could be improved.:</b> <br>{{f.Q11}}</p>
+				<p><b>12. What are the three main things that you spend your time on? These could be organizations, projects, people, jobs, causes, hobbies - anything that has an important place in your life.:</b> <br>{{f.Q12}}</p>
+			<br>
+			<p><b>Familiarity with technology</b> (1 = not familiar, 5 = very familiar)</p>
+			<ul>
+				<li><b>Basic:</b> Typing: {{f.basicq1}} | Searching Internet: {{f.basicq3}} | Email: {{f.basicq3}} | Using mobile apps: {{f.basicq4}} | Word processor: {{f.basicq5}} | Spreadsheet: {{f.basicq6}} | Social media: {{f.basicq7}} | Writing a blog post: {{f.basicq8}} | Command line: {{f.basicq9}}</li>
+				<li><b>Systems:</b> Windows:{{f.systemsq1}} | Mac:{{f.systemsq2}} | Linux:{{f.systemsq3}}</li>
+				<li><b>Coding:</b> HTML: {{f.codingq1}} | CSS: {{f.codingq2}}  | Python code:{{f.codingq3}} | Another language code:{{f.codingq4}} | Python apps:{{f.codingq5}} | Another language apps: {{f.codingq6}}</li>
+			</ul>
+			<br>
+
+	<a href="#3" class="show_hide3"><b>(Click to hide this section)</b></a>		
+	</div>
+
+	<h3><a href="#4" class="show_hide4">Recommendation 1 (click to read)</h3></a>
+	<div class="slidingDiv4">
+		Recommenders rated applicants along 6 dimensions and provided examples to explain their ratings. Where 1=low and 5=high, this recommender rated the applicant:
+			<ol>
+				<li><strong>Commitment to racial, gender, and/or economic justice</strong><br><b>({{rec1.recq1}})</b>: {{rec1.recq1ex}}</li>
+				<li><strong>Creativity in problem solving</strong><br><b>({{rec1.recq2}})</b>: {{rec1.recq2ex}}</li>
+				<li><strong>Patience in working through obstacles</strong><br><b>({{rec1.recq3}})</b>: {{rec1.recq3ex}}</li>
+				<li><strong>Demonstrated interest in teaching and mentoring others</strong><br><b>({{rec1.recq4}})</b>: {{rec1.recq4ex}}</li>
+				<li><strong>Curiosity around how things work (likes to take things apart, dig into the structure of groups or organizations, find out what "makes people tick")</strong><br><b>({{rec1.recq5}})</b>: {{rec1.recq5ex}}</li>
+				<li><strong>Demonstrated willingness to ask for help:</strong><br><b>({{rec1.recq6}})</b>: {{rec1.recq6ex}}</li>
+			</ol>
+			<ol start="7">
+				<li><strong>We are committed to our students as professionals - and we also want to support them as members of our community. If they are accepted to the program, what is one specific challenge faced by this applicant that we should keep in mind?: </strong> <br>{{rec1.recq7}}</li>
+				<li><strong>What specific things can we do to best support this applicant, if they are accepted to the program?</strong><br>{{rec1.recq8}}</li>
+			</ol>
+				</p>
+			</ol>
+		</p>
+	<br>
+	<a href="#4" class="show_hide4"><b>(Click to hide this section)</b></a>		
+	</div>
+
+
+	<h3><a href="#5" class="show_hide5">Recommendation 2 (click to read)</h3></a>
+	<div class="slidingDiv5">
+		Recommenders rated applicants along 6 dimensions and provided examples to explain their ratings. Where 1=low and 5=high, this recommender rated the applicant:
+			<ol>
+				<li><strong>Commitment to racial, gender, and/or economic justice</strong><br><b>({{rec2.recq1}})</b>: {{rec2.recq1ex}}</li>
+				<li><strong>Creativity in problem solving</strong><br><b>({{rec2.recq2}})</b>: {{rec2.recq2ex}}</li>
+				<li><strong>Patience in working through obstacles</strong><br><b>({{rec2.recq3}})</b>: {{rec2.recq3ex}}</li>
+				<li><strong>Demonstrated interest in teaching and mentoring others</strong><br><b>({{rec2.recq4}})</b>: {{rec2.recq4ex}}</li>
+				<li><strong>Curiosity around how things work (likes to take things apart, dig into the structure of groups or organizations, find out what "makes people tick")</strong><br><b>({{rec2.recq5}})</b>: {{rec2.recq5ex}}</li>
+				<li><strong>Demonstrated willingness to ask for help:</strong><br><b>({{rec2.recq6}})</b>: {{rec2.recq6ex}}</li>
+			</ol>
+			<ol start="7">
+				<li><strong>We are committed to our students as professionals - and we also want to support them as members of our community. If they are accepted to the program, what is one specific challenge faced by this applicant that we should keep in mind?: </strong> <br>{{rec2.recq7}}</li>
+				<li><strong>What specific things can we do to best support this applicant, if they are accepted to the program?</strong><br>{{rec2.recq8}}</li>
+			</ol>
+				</p>
+			</ol>
+		</p>
+	<br>
+	<a href="#5" class="show_hide5"><b>(Click to hide this section)</b></a>		
+	</div>
+
+
+	<h3><a href="#6" class="show_hide6">Recommendation 3 (click to read)</h3></a>
+	<div class="slidingDiv6">
+		Recommenders rated applicants along 6 dimensions and provided examples to explain their ratings. Where 1=low and 5=high, this recommender rated the applicant:
+			<ol>
+				<li><strong>Commitment to racial, gender, and/or economic justice</strong><br><b>({{rec3.recq1}})</b>: {{rec3.recq1ex}}</li>
+				<li><strong>Creativity in problem solving</strong><br><b>({{rec3.recq2}})</b>: {{rec3.recq2ex}}</li>
+				<li><strong>Patience in working through obstacles</strong><br><b>({{rec3.recq3}})</b>: {{rec3.recq3ex}}</li>
+				<li><strong>Demonstrated interest in teaching and mentoring others</strong><br><b>({{rec3.recq4}})</b>: {{rec3.recq4ex}}</li>
+				<li><strong>Curiosity around how things work (likes to take things apart, dig into the structure of groups or organizations, find out what "makes people tick")</strong><br><b>({{rec3.recq5}})</b>: {{rec3.recq5ex}}</li>
+				<li><strong>Demonstrated willingness to ask for help:</strong><br><b>({{rec3.recq6}})</b>: {{rec3.recq6ex}}</li>
+			</ol>
+			<ol start="7">
+				<li><strong>We are committed to our students as professionals - and we also want to support them as members of our community. If they are accepted to the program, what is one specific challenge faced by this applicant that we should keep in mind?: </strong> <br>{{rec3.recq7}}</li>
+				<li><strong>What specific things can we do to best support this applicant, if they are accepted to the program?</strong><br>{{rec3.recq8}}</li>
+			</ol>
+				</p>
+			</ol>
+		</p>
+	<br>
+	<a href="#6" class="show_hide6"><b>(Click to hide this section)</b></a>		
+	</div>
+
+
+	<h3><a href="#1" class="show_hide1 evaluatorqs">Evaluator questions (click to start answering)</h3></a>
+	<div class="slidingDiv1">
+		<form action="" method="post" name="evaluate">
+				{{form.hidden_tag()}}
+				Please rate this applicant along four dimensions (in which <strong>1 = weakest, 6 = strongest</strong>):
+				<br>This applicant:<ol><li>Sees human, societal, and/or technological issues through a critical, problem-solving lens. {{form.critical}}</li>
+				<br><li>Plans to use Code for Progress training in ways that align with the CFP mission. {{form.mission}}</li>
+				<br><li>Understands themself as operating in community with others. {{form.community}}</li>
+				<br><li>Has an inspiring story or set of ideas. {{form.inspire}}</li></ol>
+				<p><br>Would you recommend this applicant for the 2014 class? {{form.yesno}}</p> 
+				<p class="explain">What is one question we should ask this applicant, if they are interviewed? </b> {{form.interview}}
+				<br>(optional) Please provide additional questions you would like asked or comments you would like considered. </b> {{form.additional}}
+
+		<a href="#1" class="show_hide1"><b>(Click to hide this section)</b></a></p>	
+	</div>
+
+
+
+
+
+
+<br><br><br></div>
+</div>
+	<button type="submit" class="advance"><span id="evalsubmit"><h2 class="evalsubmit">Save these answers</h2></span></button>
+	</form>
+
+{% endblock %}

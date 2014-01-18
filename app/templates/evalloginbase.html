@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Recommendation - Code for Progress</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+
+<body>
+	<div id="banner">
+		<a href="{{ url_for('eval_help') }}"><button class="navbutton">Get help</button></a>
+	</div>
+
+	<div id="header">
+		<img src="../static/CFPlogo.jpg">
+		<div id="triangle"><div class="arrow-down"></div></div>
+	</div>
+
+	<div id="content">
+
+		{% block content %}{% endblock %}
+	</div>
+
+</body>
+</html>
