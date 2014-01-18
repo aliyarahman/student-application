@@ -3,7 +3,7 @@
 
 <div class="contentholder">
 	<div class="formheader"><h2>Before we get started...</h2>
-		<p>Before you create an account, we'd like to make sure you know some important things about this program. This isn't an official agreement - it's just to give you a heads up. We'll go over an agreement with students after they are accepted.</p>
+		<p>Before you move on to the application, we'd like to make sure you know some important things about this program. This isn't an official agreement - it's just to give you a heads-up. We'll go over an agreement with students after they are accepted.</p>
 	</div>
 		
 		<p><label><br><br>Click the checkboxes to let us know that you understand each of the things on this list, and then we'll start the application.</label></p>
@@ -16,22 +16,22 @@
 		<form action="" method="post" name="checklist">
 			{{form.hidden_tag()}}	
 				<div class="checkitem">The first 16 weeks of this program (the "residency") will happen in Washington, DC, which means that students need to live there from April 15th through August 15th.
-				<p>{{form.check1}}<label for="check1">I understand.</label></p></div>
+				<p><span class="understand">I understand.</span> {{form.check1}}<label for="check1"></label></p></div>
 									
-				<div class="checkitem">During the residency, will be in class from 9am-5pm, Monday through Friday, and on no more than one Saturday per month. Evenings and open weekends are free - as long as you are back in the training room on time the next day.
-				<p>{{form.check2}}<label for="check2">I understand.</label></p></div>
+				<div class="checkitem">During the residency, students will be in class from 9am-5pm, Monday through Friday, and on no more than one Saturday per month. Evenings and open weekends are free - as long as you are back in the training room on time the next day.
+				<p><span class="understand">I understand.</span> {{form.check2}}<label for="check2"></label></p></div>
+					
+				<div class="checkitem">Code for Progress will give students a stipend to pay for housing and live in DC during the residency in DC. We will also help you to find housing for those four months, if you don't already live in the area. Paying for other things is up to you.
+				<p><span class="understand">I understand.</span> {{form.check3}}<label for="check3"></label></p></div>
 				
-				<div class="checkitem">Code for Progress will give students enough money to pay rent and bills, and to eat and live in DC during the residency in DC. We will also help you to find housing for those four months, if you don't already live in the area. Paying for other things is up to you.
-				<p>{{form.check3}}<label for="check3">I understand.</label></p></div>
-				
-				<div class="checkitem">After the residency, we'll have a group phone call or online community activity every week until April 1, 2014. This will take no more than half an hour each week, but it really is required (because what we do in those activities is a big part of what makes our program different).
-				<p>{{form.check4}}<label for="check4">I understand.</label></p></div>
+				<div class="checkitem">After the residency, we'll have a group phone call or online community activity every week until April 1, 2015. This will take no more than half an hour each week, but it really is required (because what we do in those activities is a big part of what makes our program different).
+				<p><span class="understand">I understand.</span> {{form.check4}}<label for="check4"></label></p></div>
 				
 				<div class="checkitem">Code for Progress is a training, but it's also a community. That means we expect our graduates to mentor new students, and to come back and teach every now and then (we'll give you the things you need to do that).
-				<p>{{form.check5}}<label for="check5">I understand.</label></p></div>
+				<p><span class="understand">I understand.</span> {{form.check5}}<label for="check5"></label></p></div>
 				
-				<br><br><br><br><a href="{{url_for('index')}}"><button class="advance" type="submit"><span id="finished">I UNDERSTAND</span>Get me started on my application!</button>	
-				<br><br><br><br><a href="{{url_for('logout')}}"><button class="advance" type="button"><span id="finished">TAKE ME BACK</span>Actually, this program isn't for me.</button>
+				<br><br><br><br><button class="advance" type="submit" onClick="location.href ='{{ url_for('index') }}'"><span id="finished">I UNDERSTAND</span>Get me started on my application!</button>	
+				<br><br><br><br><button class="advance" type="button" onClick="location.href ='{{ url_for('logout') }}'"><span id="finished">TAKE ME BACK</span>Actually, this program isn't for me.</button>
 				<br><br><br>
 		</form>
 

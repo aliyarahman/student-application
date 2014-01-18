@@ -4,17 +4,10 @@
 		<title>Recommendation - Code for Progress</title>
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 	</head>
-	
+
 <body>
 	<div id="banner">
 		<a href="{{ url_for('rec_help') }}"><button class="navbutton">Get help</button></a>
-	{% if current_user.is_authenticated() %}
-		<a href="{{ url_for('rec_index') }}"><button class="navbutton">My recommendations</button></a>
-		<a href="{{ url_for('rec_logout') }}"><button class="navbutton">Log out</button></a>
-		<span id="user-info">Hi, {{ current_user.firstname }}</span>
-	{% else %}
-		<a href="{{ url_for('rec_login') }}"><button class="navbutton">Log in</button></a>
-	{% endif %}
 	</div>
 
 	<div id="header">

@@ -1,0 +1,53 @@
+{% extends "selectorbase.html" %}
+
+{% block content %}
+
+<div class = "contentholder">
+<p><b>{{total_apps}}</b> people have started applications.</p>
+<p><b>{{complete_apps}}</b> of those are finished.</p>
+
+
+<p><br><br>The people who have finished are:</p>
+<ol>{% for f in finishedapplicants %}
+	<li><b><a href="#{{f.user_id}}" class="show_hide{{f.user_id}}">{{f.firstname}} {{f.lastname}}</b> ({{f.city}},{{f.state}})</a></li>
+	<div class="slidingDiv{{f.user_id}}">
+		<p><b>How did they hear about the application?:</b>{{f.appsource}}
+		<br><b>Languages: </b>{{f.languages}}
+		<br><b>Cultural groups: </b>{{f.culturalgroups}}
+		<br><b>Working?: </b> {{f.working}}
+		<br><b>In school?: </b>{{f.school}}</p>
+		<br>
+		<p><b>Shortanswer questions</b></p>
+		<ol>
+			<li>{{f.Q01}}</li>
+			<li>{{f.Q02}}</li>
+                        <li>{{f.Q03}}</li>
+                        <li>{{f.Q04}}</li>
+                        <li>{{f.Q05}}</li>
+                        <li>{{f.Q06}}</li>
+                        <li>{{f.Q07}}</li>
+                        <li>{{f.Q08}}</li>
+                        <li>{{f.Q09}}</li>
+                        <li>{{f.Q10}}</li>
+                        <li>{{f.Q11}}</li>
+                        <li>{{f.Q12}}</li>
+		</ol>
+		<br>
+		<p><b>Tech familiarity</b> (5 is high, 1 is low)</p>
+		<ul>
+			<li><b>Basic:</b> Typing: {{f.basicq1}} | Searching Internet: {{f.basicq3}} | Email: {{f.basicq3}} | Using mobile apps: {{f.basicq4}} | Word processor: {{f.basicq5}} | Spreadsheet: {{f.basicq6}} | Social media: {{f.basicq7}} | Writing a blog post: {{f.basicq8}} | Command line: {{f.basicq9}}
+			<li><b>Systems:</b> Windows:{{f.systemsq1}} | Mac:{{f.systemsq2}} | Linux:{{f.systemsq3}}
+			<li><b>Coding:</b> HTML: {{f.codingq1}} | CSS: {{f.codingq2}}  | Python code:{{f.codingq3}} | Another language code:{{f.codingq4}} | Python apps:{{f.codingq5}} | Another language apps: {{f.codingq6}}</li>
+		</ul>
+		<br>
+		<p><b>Recommenders</b>
+		<ul><li>{{f.rec1firstname}} {{f.rec1lastname}} ({{f.rec1email}})</li>
+			<li>{{f.rec2firstname}} {{f.rec2lastname}} ({{f.rec2email}})</li>
+			<li>{{f.rec3firstname}} {{f.rec3lastname}} ({{f.rec3email}})</li></ul></p>
+	<a href="#{{f.user_id}}" class="show_hide{{f.user_id}}"><b>(Click here to hide this applicant's info)</b></a>
+	<br><br><br>
+	--------------------------------
+	</div>
+	{% endfor %}
+</ol></div>
+{% endblock %}

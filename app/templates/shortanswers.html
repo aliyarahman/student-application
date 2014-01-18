@@ -3,8 +3,8 @@
 	
 	<div class="contentholder" id="shortanswers">
 		<div class="formheader"><h2>Tell us how you think.</h2></div>
-			<p>We'd like to know some things about what matters to you, and what you want to do with Code for Progress training.</p>
-			<p>These are short answer questions, so they can be as short as one sentence or as long as it takes to fill the box. You don't need to do any research to answer these - just use what you already know.</p><br>
+			<p>We'd like to know about what matters to you, and about what you want to do with Code for Progress training.</p>
+			<p>These are short-answer questions, so they can be as short as one sentence or as long as it takes to fill the box. You don't need to do any research to answer these - just use what you already know.</p><br>
 			
 			{%if form.errors %}
 			<br><p style="color:red">Looks like something's missing on your form:<br>
@@ -21,28 +21,28 @@
 			{{form.hidden_tag()}}
 			
 			<p><label for="Q1">1. What will this training help you to do in your community or organization that you can't already do?</label></p>                       
-			<p>{{form.Q01(maxlength=575)}}</p>
+			<p>{{form.Q01(maxlength=460)}}</p>
 
 			<p><label for="Q2">2. What kind of employment do you plan to look for after you finish the residency for this program?</label>
-			<p>{{form.Q02(maxlength=575)}}</p></p>
+			<p>{{form.Q02(maxlength=460)}}</p></p>
 
 			<p><label for="Q3">3. Think about a real person who taught you about justice. Who are/were they, and what specific things did you learn from them?</label>
-			<p>{{form.Q03(maxlength=575)}}</p></p>
+			<p>{{form.Q03(maxlength=460)}}</p></p>
 			
 			<p><label for="Q4">4. <i>(This question is based on your answer to Question 3.) </i>What have you done to put what you learned from them into action?</label>                       
-			<p>{{form.Q04(maxlength=575)}}</p></p>
+			<p>{{form.Q04(maxlength=460)}}</p></p>
 			
 			<p><label for="Q5">5. Who is someone you want to ask to mentor you, and why? (This can be someone in your personal, work, or community life - but it should be a person you might actually ask.)</label>
-			<p>{{form.Q05(maxlength=575)}}</p></p>
+			<p>{{form.Q05(maxlength=460)}}</p></p>
 			
 			<p><label for="Q6">6. Who is someone that you are currently mentoring? What things do you do to mentor them?</label>
-			<p>{{form.Q06(maxlength=575)}}</p></p>
+			<p>{{form.Q06(maxlength=460)}}</p></p>
 			
 			<p><label for="Q7">7. Think of a person whose leadership you admire, but whose style of leading is different than your own. What do you admire about their leadership, and how does is it different from yours?</label>
-			<p>{{form.Q07(maxlength=575)}}</p></p>
+			<p>{{form.Q07(maxlength=460)}}</p></p>
 			
 			<p><label for="Q8">8. What's an excellent piece of constructive criticism that you've gotten? What made it so good?</label>                       
-			<p>{{form.Q08(maxlength=575)}}</p></p>
+			<p>{{form.Q08(maxlength=460)}}</p></p>
 			
 			<p><label for="Q9">9. Think about a problem that:</label>
 				<ul>
@@ -50,20 +50,20 @@
 				<li><label>makes it harder for people to get the things they need</li></label>
 				<li><label>you might be able to help solve by making an app, computer program, or system for passing around information.</label></li></ul>
 				<label>Describe that problem and explain why it's important for us to start solving it (don't tell us about the app yet).</label>
-			<p>{{form.Q09(maxlength=575)}}</p></p>
+			<p>{{form.Q09(maxlength=460)}}</p></p>
 			
-			<p><label for="Q10">10. (Use your answer to question 8 for this question). If you could make an app, computer program, or computer system for giving people information that might help to solve the problem,
+			<p><label for="Q10">10. (Use your answer to question 9 for this question). If you could make an app, computer program, or computer system for giving people information that might help to solve the problem,
 			what would it let people do? You don't have to know how we could make it - just decribe how someone would use it.</label>
-			<p>{{form.Q10(maxlength=575)}}</p></p>
+			<p>{{form.Q10(maxlength=460)}}</p></p>
 			
 			<p><label for="Q11">11. A lot of us already use apps and computer programs in different parts of our lives, even if we don't use computers very often. 
 			We might have a Facebook page, use a phone that has a contact list or address book, or have information about us stored on a website or computer
 			because of a service we use (like a library card, a card we use to pay for groceries, or a file where a social services agency keeps information about us).
 			Name one app, program or computer system that you use, and explain one way that it could be improved.</label>
-			<p>{{form.Q11(maxlength=575)}}</p></p>
+			<p>{{form.Q11(maxlength=460)}}</p></p>
 			
 			<p><label for="Q12">12. What are the three main things that you spend your time on? These could be organizations, projects, people, jobs, causes, hobbies - anything that has an important place in your life.</label>
-			<p>{{form.Q12(maxlength=575)}}</p></p>
+			<p>{{form.Q12(maxlength=460)}}</p></p>
 			
 			<button type="submit" class="advance"><span id="finished">FINISHED?</span>Click here to see if anything's missing.</button>
 		</form>

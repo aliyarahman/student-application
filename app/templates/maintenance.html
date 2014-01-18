@@ -1,0 +1,23 @@
+{% extends "recloginbase.html" %}
+{% block content %}
+
+
+	<div class="loginerror">
+		{% if form.errors %}
+		<p style="color:red">Looks like there's something missing:<br />
+			{% for field_name, field_errors in form.errors|dictsort if field_errors %}
+				{% for error in field_errors %}
+				<br /><span style="margin-left:15px">- {{ error }}</span>
+				{% endfor %}
+			{% endfor %}
+		</p>
+		{% endif %}
+	</div>
+
+	<div class="contentholder">
+		<h2>We're doing some maintenance</h2>
+	</div>
+		<p>Thanks for stopping by to submit a recommendation! We're performing some maintenance on our site - please check back shortly!</p>
+	</div>
+		
+{%endblock %}

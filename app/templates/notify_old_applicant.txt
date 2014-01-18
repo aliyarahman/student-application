@@ -1,0 +1,21 @@
+Hi {{student.firstname}},
+
+Thanks for submitting your application to Code for Progress! We can't wait to learn all about you.
+
+But first - today we sent links for the recommender website to the three recommenders you listed, so we'll give them until January 20th to log in and tell us why you're perfect for this program. You can help them by checking to make sure they received our note.
+
+After we close the application process and gather your recommendations, our selection committee will start reviewing applications. Plan to hear from us in early February about whether you've been selected to move on to Round II: Interviews!
+
+If you have any questions, comments, or curiosity in the meantime, please join us on our Thursday evening call:
+
+What: Thursday Code for Progress info call
+When: 7:30pm EST / 4:30pm PST, now through January 9, 2014
+Where: Dial 202-609-8606, then enter access code 333#
+
+
+- The Code for Progress team
+
+applications@codeforprogress.org
+http://www.codeforprogress.org
+
+Know someone else who would be great for Code for Progress? Visit http://www.codeforprogress.org/send-this-application to send them the application.

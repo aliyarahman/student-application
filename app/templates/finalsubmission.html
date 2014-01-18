@@ -3,37 +3,38 @@
 
 	<div class="contentholder">
 		{% if current_user.profile_complete() and current_user.short_questions_complete() and current_user.tech_questions_complete() and current_user.recommendations_complete() %}
-
-			<p>Congratulations, you've completed your application!</p>
-
+			<div class="formheader"><h2>Congratulations!</h2></div>
+			<p>Looks like all of your sections are complete.</p>
+			<p>Before you submit your application, please check over your answers one last time. You won't be able to change them after you submit, so make sure they are the ones you want the committee to see!</p>
+			<p>Also, please check to make sure you've given us the correct email addresses for your recommenders, since that's where we'll send their login info. After you submit, you will be able to log on to this site to see which recommenders have completed their parts - and to see which ones might need a reminder. Plan to check back a couple of times before January 27th, to help make sure that we have all your full application.</p>
+			</div>
 			<br><br><br><br>
 			<a href="{{url_for('received')}}">
 				<button class="advance" type="button">
-					<span id="finished">FINISH</span>Click to submit your completed application.
+					<span id="finished">SUBMIT</span>Click to submit your completed application.
 				</button>
 			</a>
 		{% else %}
-			<div class="formheader">
-				<h2>Looks like you still need to finish something.</h2>
-			</div>
-			
+			<div class="formheader"><h2>Looks like you still need to finish something.</h2></div>
+
 			{% if not current_user.profile_complete() %}
-				<p>You still need to do your <a href="/profile">profile</a>. It won't take long.</p></div>
+				<p>You still need to do your <a href="/profile"><b>profile</b></a>. It won't take long.</p>
 			{% endif %}
 
 			{% if not current_user.short_questions_complete() %}
-				<p>You still need to do your <a href="/shortanswers">short questions</a>. It won't take long.</p></div>
+				<p>You still need to do your <a href="/shortanswers"><b>short questions</b></a>. It won't take long.</p>
 			{% endif %}
 
 			{% if not current_user.tech_questions_complete() %}
-				<p>You still need to do your <a href="/techskills">tech survey</a>. It won't take long.</p></div>
+				<p>You still need to do your <a href="/techskills"><b>tech survey</b></a>. It won't take long.</p>
 			{% endif %}
 
 			{% if not current_user.recommendations_complete() %}
-				<p>You still need to do your <a href="/recommendations">recommendations</a>. It won't take long.</p></div>
+				<p>You still need to do your <a href="/recommendations"><b>recommendations</b></a>. It won't take long.</p>
 			{% endif %}
 
 			<br><br><br><br>
+			</div></div>
 			<a href="{{url_for('index')}}">
 				<button class="advance" type="button">
 					<span id="finished">GO BACK</span>Click to go back to the main menu.
@@ -41,12 +42,7 @@
 			</a>
 
 			<br><br><br><br>
-			<a href="{{url_for('received')}}">
-				<button class="advance" type="button">
-					<span id="finished">I'M STILL DONE</span>Click to submit an incomplete application.
-				</button>
-			</a>
+
 		{% endif %}
-	</div>
 	
 {% endblock %}

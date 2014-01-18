@@ -2,7 +2,7 @@ from flask import render_template, redirect, flash, request, session
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from app import app, login_manager, db
 from models import User, Recommendation
-from forms import LoginForm, ProfileForm, RecLoginForm, ShortanswerForm, RecommendationsForm, TechskillsForm, ChecklistForm, RecommenderForm, ChangeRecommenderContact, CreateProfileForm
+from forms import LoginForm, ProfileForm, RecLoginForm, ShortanswerForm, RecommendationsForm, TechskillsForm, ChecklistForm, RecommenderForm, ChangeRecommenderContact
 from emails import new_application_submitted, notify_applicant, notify_recommenders, remind_recommender
 
 @login_manager.user_loader
@@ -30,6 +30,7 @@ def login():
 		form=form)
 
 
+
 @app.route('/', methods= ['GET', 'POST'])
 @app.route('/index', methods= ['GET', 'POST'])
 @login_required
@@ -46,7 +47,7 @@ def index():
 	return render_template("index.html", recs = recs)
 
 
-#this is the new functionality for users to view their recommenders
+#this is the new recommender functionality
 @app.route('/myrecommender/<recommender_id>', methods= ['GET', 'POST'])
 @login_required
 def myrecommender(recommender_id):
@@ -92,46 +93,9 @@ def myrecommender(recommender_id):
 def checklist():
 	form = ChecklistForm()
 	if form.validate_on_submit():
-		return redirect('/createprofile')
+		return redirect('/profile')
 	return render_template('checklist.html',
 		form=form)
-
-
-
-@app.route('/createprofile', methods = ['GET', 'POST'])
-def createprofile():
-	if current_user.is_authenticated():
-		user = current_user
-	else:
-		user = None
-	
-	form = CreateProfileForm(obj=user)
-
-	if not form.password or form.password == '':
-		del form.password
-	
-	if form.validate_on_submit():
-		if user:
-			flash('Successfully updated your profile.')
-		else:
-			user = User()
-			user.role = 1
-			flash('Congratulations, you just created an account!')
-
-		form.populate_obj(user)
-		db.session.add(user)
-		db.session.commit()
-
-		if not current_user.is_authenticated():
-			login_user(user)
-
-		return redirect('/')
-
-	return render_template('createprofile.html', form=form)
-
-
-
-
 
 @app.route('/profile', methods = ['GET', 'POST'])
 def profile():
@@ -139,12 +103,12 @@ def profile():
 		user = current_user
 	else:
 		user = None
-	
+
 	form = ProfileForm(obj=user)
 
 	if not form.password or form.password == '':
 		del form.password
-	
+
 	if form.validate_on_submit():
 		if user:
 			flash('Successfully updated your profile.')
@@ -341,9 +305,9 @@ def rec_index():
                 return redirect('/index')
 	students = []
 	recs =[]
-	student1 = (User.query.filter_by(rec1email = current_user.email, application_complete =1).all())
-        student2 = (User.query.filter_by(rec2email = current_user.email, application_complete =1).all())
-	student3 = (User.query.filter_by(rec3email = current_user.email, application_complete =1).all())
+	student1 = (User.query.filter_by(rec1email = current_user.email).all())
+        student2 = (User.query.filter_by(rec2email = current_user.email).all())
+	student3 = (User.query.filter_by(rec3email = current_user.email).all())
 	recommendations = []	
 	if student1:
 		for s1 in student1:
@@ -357,7 +321,7 @@ def rec_index():
 	for s in students:
 		recommendation = Recommendation.query.filter_by(student_id = s.user_id, recommender_id = current_user.user_id).first()
 		if recommendation.is_recommendation_complete():
-			recommendation.recommendation_complete =1
+			recommendation.recommendation_complete ==1
 		recs.append(recommendation)
 	db.session.add(current_user)
 	db.session.commit()
@@ -419,4 +383,8 @@ def rec_logout():
 def rec_received():
         if current_user.role ==1:
                 return redirect('/index')
+        if current_user.all_recs_complete ==0:
+		return redirect('/rec_finalsubmission')
+	if current_user.all_recs_complete ==1:
+                return redirect('/rec_index')
 	return render_template("rec_received.html")

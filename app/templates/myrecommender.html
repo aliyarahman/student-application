@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="contentholder">
+	<div class="formheader">
+		<h2>Update this recommender's info or send them a reminder</h2>
+	</div>
+
+	<p>Need to fix or change a recommender's email address, or just need to send a reminder to finish their recommendation?</p>
+	<p>Make sure the correct email address is entered here, and click the"Save and Send" button to send that person an email with their login information and a link to the recommender site.</p>
+
+	<form action="" method="post" name="ChangeRecommenderContact">
+		{{form.hidden_tag()}}
+		<div style="margin-left: 100px; font-size: 24px;">
+				<p><b>First name</b>: {{ recommender.firstname }}</p>
+				<p><b>Last name</b>: {{ recommender.lastname }}</p>
+				<p><b>Email</b>: {{ form.email }}</p>
+
+		</div>
+		<br><br><button type="submit" class="advance"><span id="finished">Save & Send</span>Clicking will email this recommender</button>
+
+	</form>
+</div>
+{% endblock %}
