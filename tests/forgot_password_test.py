@@ -14,6 +14,10 @@ class ForgotPasswordTest(BaseTest):
 		assert ("name=\"email\"" in response.data)
 
 	def test_submit_forgot_form(self):
+		user = User(email='person@example.com')
+		db.session.add(user)
+		db.session.commit()
+
 		response = self.client.post("/forgot", data=dict(email='person@example.com'))
 		self.assertRedirects(response, "/forgot_confirmation")
 
@@ -21,6 +25,11 @@ class ForgotPasswordTest(BaseTest):
 		response = self.client.post("/forgot", data=dict(email='blahblah'))
 
 		assert "Hmm, this doesn&#39;t look like an email address." in response.data
+
+	def test_submit_forgot_invalid_user(self):
+		response = self.client.post("/forgot", data=dict(email='blahblah@example.com'))
+
+		assert "A user account does not exist for that email address." in response.data
 
 	def test_forgot_confirmation_page(self):
 		response = self.client.get("/forgot_confirmation")

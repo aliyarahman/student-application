@@ -4,6 +4,10 @@ from models import User, Recommendation
 from wtforms import TextField, PasswordField, IntegerField, TextAreaField, RadioField, BooleanField
 from wtforms.validators import Required, Email, EqualTo, Length, ValidationError, Optional
 
+def unique_user(form, field):
+     users = User.query.filter_by(email=field.data)
+     if users and users.count() > 0:
+         raise ValidationError('The email address you provided is already in use.')
 
 class LoginForm(Form):
 	email = TextField('email', validators = [Required(message="We need to know your email address.")])
@@ -23,7 +27,7 @@ class LoginForm(Form):
 class CreateProfileForm(Form):
 	firstname = TextField('firstname', validators = [Required(message='We need to know your first name!')])
 	lastname = TextField('lastname', validators = [Required(message='We need to know your last name!')])
-	email = TextField('email', validators = [Required(message="We need your email address!"), Email(message="Hmm, your email address doesn't look like an email address.")])
+	email = TextField('email', validators = [unique_user, Required(message="We need your email address!"), Email(message="Hmm, your email address doesn't look like an email address.")])
 	password = PasswordField('password')
 	retypepassword = PasswordField('retypepassword')
 	phone = TextField('phone', validators = [Required(message="We need your phone number!")])
@@ -189,7 +193,17 @@ class ChangeRecommenderContact(Form):
 #new
 
 class ForgotPasswordForm(Form):
+
 	email = TextField('email', validators = [Required(message="your email address"), Email("Hmm, this doesn't look like an email address.")])
+
+	def validate_email(self, field):
+		user = self.get_user()
+
+		if not user:
+			raise ValidationError("A user account does not exist for that email address.")
+
+	def get_user(self):
+		return User.query.filter_by(email=self.email.data).first()
 
 class ResetPasswordForm(Form):
 	password = PasswordField('password')
