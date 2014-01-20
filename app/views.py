@@ -322,13 +322,6 @@ def forgot():
         send_password_reset(form.get_user(), token)
         return redirect('/forgot_confirmation')
 
-        #mail.send_message(
-        #    subject='Code For Progress Password Reset',
-        #    html='<a href="http://apply.codeforprogress.org/reset_password?token='+token+'">Click here</a> to reset your password.',
-        #    recipients=[request.form['email']],
-        #    sender='info@codeforprogress.org'
-        #)
-
     return render_template("forgot.html", form=form)
 
 @app.route('/forgot_confirmation', methods = ['GET'])
