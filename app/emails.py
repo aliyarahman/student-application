@@ -32,3 +32,12 @@ def notify_old_applicant(student):
 def remind_recommender(student, recommender):
 	send_email("%s has asked for your recommendation" % student.firstname, ADMINS[0], [recommender.email, "aliya@codeforprogress.org"], render_template("remind_recommenders.txt", student=student, recommender=recommender), render_template("remind_recommenders.html", student = student, recommender=recommender))
 #new
+
+def send_password_reset(user, token):
+	send_email(
+		"CodeForProgress Password Reset",
+		ADMINS[0],
+		[user.email,],
+		render_template("forgot_password_email.txt", user=user, token=token),
+		render_template("forgot_password_email.html", user=user, token=token)
+	)

@@ -189,7 +189,17 @@ class ChangeRecommenderContact(Form):
 #new
 
 class ForgotPasswordForm(Form):
+
 	email = TextField('email', validators = [Required(message="your email address"), Email("Hmm, this doesn't look like an email address.")])
+
+	def validate_email(self, field):
+		user = self.get_user()
+
+		if not user:
+			raise ValidationError("A user account does not exist for that email address.")
+
+	def get_user(self):
+		return User.query.filter_by(email=self.email.data).first()
 
 class ResetPasswordForm(Form):
 	password = PasswordField('password')

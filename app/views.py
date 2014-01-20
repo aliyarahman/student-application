@@ -3,13 +3,12 @@ from flask.ext.login import login_user, logout_user, login_required, current_use
 from app import app, login_manager, db, mail
 from models import User, Recommendation
 from forms import LoginForm, ProfileForm, RecLoginForm, ShortanswerForm, RecommendationsForm, TechskillsForm, ChecklistForm, RecommenderForm, ChangeRecommenderContact, CreateProfileForm, ResetPasswordForm, ForgotPasswordForm
-from emails import new_application_submitted, notify_applicant, notify_recommenders, remind_recommender
-from itsdangerous import Signer
+from emails import new_application_submitted, notify_applicant, notify_recommenders, remind_recommender, send_password_reset
+from itsdangerous import Signer, BadSignature
 
 @login_manager.user_loader
 def load_user(userid):
     return User.query.get(userid)
-
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -30,7 +29,6 @@ def login():
     return render_template('login.html',
         form=form)
 
-
 @app.route('/', methods= ['GET', 'POST'])
 @app.route('/index', methods= ['GET', 'POST'])
 @login_required
@@ -45,7 +43,6 @@ def index():
         recs.append(User.query.filter_by(email = current_user.rec2email).first())
         recs.append(User.query.filter_by(email = current_user.rec3email).first())
     return render_template("index.html", recs = recs)
-
 
 #this is the new functionality for users to view their recommenders
 @app.route('/myrecommender/<recommender_id>', methods= ['GET', 'POST'])
@@ -322,13 +319,15 @@ def forgot():
         s = Signer(app.config['SECRET_KEY'])
         token = s.sign(request.form['email'])
 
-        mail.send_message(
-            subject='Code For Progress Password Reset',
-            html='<a href="http://apply.codeforprogress.org/reset_password?token='+token+'">Click here</a> to reset your password.',
-            recipients=[request.form['email']],
-            sender='info@codeforprogress.org'
-        )
+        send_password_reset(form.get_user(), token)
         return redirect('/forgot_confirmation')
+
+        #mail.send_message(
+        #    subject='Code For Progress Password Reset',
+        #    html='<a href="http://apply.codeforprogress.org/reset_password?token='+token+'">Click here</a> to reset your password.',
+        #    recipients=[request.form['email']],
+        #    sender='info@codeforprogress.org'
+        #)
 
     return render_template("forgot.html", form=form)
 
@@ -344,12 +343,19 @@ def reset_password():
         token = form.token.data
 
         s = Signer(app.config['SECRET_KEY'])
-        email = s.unsign(token)
+
+        try:
+            email = s.unsign(token)
+        except BadSignature:
+            return render_template("reset_invalid_token.html")
 
         user = User.query.filter_by(email=email).first()
 
         if user:
             user.set_password(form.password.data)
+
+            print user.password
+
             login_user(user)
 
             return redirect("/")
