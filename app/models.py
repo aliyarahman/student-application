@@ -158,6 +158,7 @@ class User(db.Model):
 
     def set_password(self, password):
         self.password = password
+        db.session.add(self)
         db.session.commit()
 
 class Recommendation(db.Model):
