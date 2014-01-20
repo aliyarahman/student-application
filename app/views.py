@@ -1,8 +1,10 @@
 from flask import render_template, redirect, flash, request, session
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from app import app, login_manager, db, mail
-from models import User, Recommendation
-from forms import LoginForm, ProfileForm, RecLoginForm, ShortanswerForm, RecommendationsForm, TechskillsForm, ChecklistForm, RecommenderForm, ChangeRecommenderContact, CreateProfileForm, ResetPasswordForm, ForgotPasswordForm
+from models import User, Recommendation, Evaluation
+from forms import LoginForm, ProfileForm, RecLoginForm, ShortanswerForm, RecommendationsForm, TechskillsForm, \
+                  ChecklistForm, RecommenderForm, ChangeRecommenderContact, CreateProfileForm, \
+                  ResetPasswordForm, ForgotPasswordForm, EvalLoginForm, EvaluatorForm
 from emails import new_application_submitted, notify_applicant, notify_recommenders, remind_recommender, send_password_reset
 from itsdangerous import Signer, BadSignature
 
@@ -485,3 +487,103 @@ def rec_received():
         return redirect('/rec_index')
 
     return render_template("rec_received.html")
+
+##### Begin code block for selector process
+
+@app.route('/eval_login', methods = ['GET', 'POST'])
+def eval_login():
+    form = EvalLoginForm()
+    if form.validate_on_submit():
+        evaluator = form.get_evaluator()
+        login_user(evaluator)
+        return redirect('/evaluate_index')
+    return render_template('eval_login.html',
+        form=form)
+
+@app.route('/evaluate_index', methods = ['GET', 'POST'])
+@login_required
+def evaluate_index():
+    if current_user.role ==1:
+        return redirect('/index')
+    if current_user.role ==2:
+        return redirect('/rec_index')
+    if current_user.role ==4:
+        assignedapplicants =[]
+        evals = Evaluation.query.filter_by(evaluator_id = current_user.user_id).all()
+        for e in evals:
+            a = User.query.filter_by(user_id = e.student_id).first()
+            assignedapplicants.append(a)
+        return render_template("evaluate_index.html", assignedapplicants = assignedapplicants, evals=evals, user = current_user)
+
+@app.route('/evaluate/<student_id>', methods = ['GET', 'POST'])
+@login_required
+def evaluate(student_id):
+    if current_user.role ==1:
+        return redirect('/index')
+    if current_user.role ==2:
+        return redirect('/rec_index')
+    if current_user.role ==4:
+        student = User.query.filter_by(role = 1, user_id = student_id).first()
+        evaluation = Evaluation.query.filter_by(student_id = student.user_id, evaluator_id = current_user.user_id).first()
+        recommender1 = User.query.filter_by(email = student.rec1email).first()
+        recommender2 = User.query.filter_by(email = student.rec2email).first()
+        recommender3 = User.query.filter_by(email = student.rec3email).first()
+        rec1 = Recommendation.query.filter_by(student_id = student.user_id, recommender_id = recommender1.user_id).first()
+        rec2 = Recommendation.query.filter_by(student_id = student.user_id, recommender_id = recommender2.user_id).first()
+        rec3 = Recommendation.query.filter_by(student_id = student.user_id, recommender_id = recommender3.user_id).first()              
+        form = EvaluatorForm(obj = evaluation)
+        if form.validate_on_submit():
+                form.populate_obj(evaluation)
+                db.session.add(evaluation)
+                db.session.commit()
+                return redirect('/evaluate_index')
+        return render_template("evaluate.html", f = student, form = form, evaluation =evaluation, rec1 = rec1, rec2=rec2, rec3=rec3)
+
+@app.route('/eval_finalsubmission')
+@login_required
+def eval_finalsubmission():
+    evals_complete = current_user.are_evals_complete()
+
+    db.session.add(current_user)
+    db.session.commit()
+
+    print "Evals complete: ", evals_complete
+
+    if current_user.role ==1:
+        return redirect('/index')
+    if current_user.role ==2:
+        return redirect('/rec_index')
+    if evals_complete == True:
+        #return redirect('/evaluate_index')
+        return render_template("eval_received.html")
+
+    return render_template("eval_finalsubmission.html")
+
+@app.route('/eval_help')
+def eval_help():
+    return render_template("eval_help.html")
+
+@app.route('/eval_forgot')
+def eval_forgot():
+    return render_template("eval_forgot.html")
+
+@app.route('/eval_logout')
+@login_required
+def eval_logout():
+    logout_user()
+    return redirect("http://www.codeforprogress.org")
+
+@app.route('/eval_received')
+@login_required
+def eval_received():
+    if current_user.role ==1:
+        return redirect('/index')
+    if current_user.role ==2:
+        return redirect('/rec_index')
+    if current_user.are_evals_complete() ==False:
+        return redirect('/eval_finalsubmission')
+    if current_user.are_evals_complete() ==True:
+        return redirect('/eval_index')
+    return render_template("eval_received.html")
+
+##### End code block for selector process

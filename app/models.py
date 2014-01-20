@@ -64,6 +64,9 @@ class User(db.Model):
     rec3email = db.Column(db.String(45))
     rec3phone = db.Column(db.String(45))
     rec3how = db.Column(db.Text)
+    eval1_id = db.Column(db.Integer)
+    eval2_id = db.Column(db.Integer)
+    eval3_id = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime)
     application_complete = db.Column(db.Integer, default = 0)
     recommendations = db.relationship('Recommendation', backref = 'requester', lazy = 'dynamic')
@@ -161,6 +164,17 @@ class User(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def are_evals_complete(self):
+        evaluations_due = Evaluation.query.filter_by(evaluator_id = self.user_id).all()
+        for e in evaluations_due:
+            if e.is_evaluation_complete() == False:
+                return False
+
+        self.all_evals_complete = 1
+        db.session.add(self)
+        db.session.commit()
+        return True
+
 class Recommendation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
@@ -194,3 +208,29 @@ class Recommendation(db.Model):
             db.session.commit()
             return True
         return False
+
+##### Begin code block for selector process
+
+class Evaluation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    evaluator_id = db.Column(db.Integer)
+    student_id = db.Column(db.Integer)
+    critical = db.Column(db.Integer)
+    mission = db.Column(db.Integer)
+    community = db.Column(db.Integer)
+    inspire = db.Column(db.Integer)
+    yesno = db.Column(db.Text)
+    interview = db.Column(db.Text)
+    additional = db.Column(db.Text)
+    evaluation_complete = db.Column(db.Integer, default = 0)
+
+    def is_evaluation_complete(self):
+        if self.critical and self.mission and self.community and self.inspire and self.yesno and self.interview and self.additional:
+            self.evaluation_complete = 1
+            db.session.add(self)
+            db.session.commit()
+            return True
+
+        return False
+
+##### End code block for selector process

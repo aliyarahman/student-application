@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form
 from app import db
 from models import User, Recommendation
-from wtforms import TextField, PasswordField, IntegerField, TextAreaField, RadioField, BooleanField
+from wtforms import TextField, PasswordField, IntegerField, TextAreaField, RadioField, BooleanField, SelectField
 from wtforms.validators import Required, Email, EqualTo, Length, ValidationError, Optional
 
 def unique_user(form, field):
@@ -22,7 +22,6 @@ class LoginForm(Form):
 
 	def get_user(self):
 		return db.session.query(User).filter_by(email=self.email.data).first()
-
 
 class CreateProfileForm(Form):
 	firstname = TextField('firstname', validators = [Required(message='We need to know your first name!')])
@@ -219,3 +218,30 @@ class ResetPasswordForm(Form):
 
 		if len(self.password.data) < 8:
 			raise ValidationError("Your password is a little short - pick one that's at least 8 characters long.")
+
+##### Begin code block for Selector process
+
+class EvalLoginForm(Form):
+	email = TextField('email', validators = [Required(message="We need to know your email address.")])
+	password = PasswordField('password', validators = [Required(message="We need your password.")])
+
+	def validate_email(self, field):
+		evaluator = self.get_evaluator()
+		if evaluator is None:
+			raise ValidationError("Your email address doesn't appear to be in our system")
+		if evaluator.password != self.password.data:
+			raise ValidationError("We found your email address, but your password doesn't match")
+
+	def get_evaluator(self):
+		return db.session.query(User).filter_by(email=self.email.data, role = 4).first()
+
+class EvaluatorForm(Form):
+	critical = SelectField('critical', choices=[(None, ''),('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6')], validators = [Required()])
+	mission = SelectField('mission', choices=[(None, ''),('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6')], validators = [Required()])
+	community = SelectField('community', choices=[(None, ''),('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6')], validators = [Required()])
+	inspire = SelectField('inspire', choices=[(None, ''),('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6')], validators = [Required()])
+	yesno = SelectField('yesno', choices=[(None,''),('No','No'),('Yes','Yes')], validators=[Required()])
+	interview = TextAreaField('interview', validators = [Required()])
+	additional = TextAreaField('additional')
+
+##### End code block for Selector process
