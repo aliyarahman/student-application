@@ -6,6 +6,8 @@
 		<h2>Recommend this applicant: {{student.firstname}} {{student.lastname}}</h2>
 		<p>Please fill out the five questions below. Your answers may be as long or as short as you'd like, as long as they fit in the box provided.</p>		
 		<p>Some questions ask for both a numerical rating and an explanation of that rating. Please fill out both of these parts.</p>
+
+		<p style="color: red;">Please note that you will need to fill out the full recommendation before clicking the "Finished" button, or your responses will not be saved. If you aren't able to complete the entire recommendation in one sitting, save your responses in a word processor document on your computer, then log in and paste them into the form when you're finished.</p>
 		{%if form.errors %}<br><p style="color:red">Looks like something's missing from this recommendation.<br>{% endif %}
 	</div>
 
@@ -53,7 +55,7 @@
 				<div class="mcquestion">7. We are committed to our students as professionals - but we also want to support them as members of our community. If they are accepted to the program, what is one specific challenge faced by this applicant that we should keep in mind?</p><p>{{form.recq7}}</p></div>
 				<div class="mcquestion">8. What specific things can we do to best support this applicant, if they are accepted to the program?</p><p>{{form.recq8}}</p></div>
 
-				<br><br><button type="submit" class="advance"><span id="finished">FINISHED?</span>Click here to save your changes.</button>
+				<br><br><button type="submit" class="advance"><span id="finished">FINISHED?</span>Click here to submit your responses.</button>
 		</form>
 	</div>
 		
