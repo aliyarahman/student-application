@@ -267,33 +267,33 @@ def received():
     current_user.application_complete =1
     db.session.add(current_user)
     db.session.commit()
-    make_new_recommenders()
-    make_blank_recommendations()
+    make_new_recommenders(current_user)
+    make_blank_recommendations(current_user)
     completed_app_count = len(User.query.filter_by(application_complete =1).all())
     new_application_submitted(current_user, completed_app_count)
     notify_applicant(current_user)
     notify_recommenders(current_user)
     return render_template("received.html")
 
-def make_new_recommenders():
-    recommender1 = User.query.filter_by(email = current_user.rec1email, role = 2).first()
-    recommender2 = User.query.filter_by(email = current_user.rec2email, role = 2).first()
-    recommender3 = User.query.filter_by(email = current_user.rec3email, role = 2).first()
+def make_new_recommenders(user):
+    recommender1 = User.query.filter_by(email = user.rec1email, role = 2).first()
+    recommender2 = User.query.filter_by(email = user.rec2email, role = 2).first()
+    recommender3 = User.query.filter_by(email = user.rec3email, role = 2).first()
     if not recommender1:
-        recommender1 = User(firstname = current_user.rec1firstname, lastname = current_user.rec1lastname, email = current_user.rec1email, phone = current_user.rec1phone, password = generate_recommender_password(current_user.rec1firstname, current_user.rec1lastname), role =2, all_recs_complete =0)
+        recommender1 = User(firstname = user.rec1firstname, lastname = user.rec1lastname, email = user.rec1email, phone = user.rec1phone, password = generate_recommender_password(user.rec1firstname, user.rec1lastname), role =2, all_recs_complete =0)
         db.session.add(recommender1)
     if not recommender2:
-        recommender2 = User(firstname = current_user.rec2firstname, lastname = current_user.rec2lastname, email = current_user.rec2email, phone = current_user.rec2phone, password = generate_recommender_password(current_user.rec2firstname, current_user.rec2lastname), role = 2, all_recs_complete =0)
+        recommender2 = User(firstname = user.rec2firstname, lastname = user.rec2lastname, email = user.rec2email, phone = user.rec2phone, password = generate_recommender_password(user.rec2firstname, user.rec2lastname), role = 2, all_recs_complete =0)
         db.session.add(recommender2)
     if not recommender3:
-        recommender3 = User(firstname = current_user.rec3firstname, lastname = current_user.rec3lastname, email = current_user.rec3email, phone = current_user.rec3phone, password = generate_recommender_password(current_user.rec3firstname, current_user.rec3lastname), role = 2, all_recs_complete =0)
+        recommender3 = User(firstname = user.rec3firstname, lastname = user.rec3lastname, email = user.rec3email, phone = user.rec3phone, password = generate_recommender_password(user.rec3firstname, user.rec3lastname), role = 2, all_recs_complete =0)
         db.session.add(recommender3)
     db.session.commit()
 
-def make_blank_recommendations():
-    firstrec = Recommendation(student_id = current_user.user_id, recommender_id = User.query.filter_by(email = current_user.rec1email, role =2).first().user_id)
-    secondrec = Recommendation(student_id = current_user.user_id, recommender_id = User.query.filter_by(email = current_user.rec2email, role = 2).first().user_id)
-    thirdrec = Recommendation(student_id = current_user.user_id, recommender_id = User.query.filter_by(email = current_user.rec3email, role = 2).first().user_id)
+def make_blank_recommendations(user):
+    firstrec = Recommendation(student_id = user.user_id, recommender_id = User.query.filter_by(email = user.rec1email, role =2).first().user_id)
+    secondrec = Recommendation(student_id = user.user_id, recommender_id = User.query.filter_by(email = user.rec2email, role = 2).first().user_id)
+    thirdrec = Recommendation(student_id = user.user_id, recommender_id = User.query.filter_by(email = user.rec3email, role = 2).first().user_id)
     db.session.add(firstrec)
     db.session.add(secondrec)
     db.session.add(thirdrec)
@@ -389,7 +389,9 @@ def rec_index():
     students = []
     recs =[]
     
+    print current_user.email
     student1 = (User.query.filter_by(rec1email = current_user.email, application_complete =1).all())
+    print student1
     student2 = (User.query.filter_by(rec2email = current_user.email, application_complete =1).all())
     student3 = (User.query.filter_by(rec3email = current_user.email, application_complete =1).all())
     
@@ -408,8 +410,9 @@ def rec_index():
     for s in students:
         recommendation = Recommendation.query.filter_by(student_id = s.user_id, recommender_id = current_user.user_id).first()
     
-        if recommendation.is_recommendation_complete():
+        if recommendation and recommendation.is_recommendation_complete():
             recommendation.recommendation_complete =1
+        
         recs.append(recommendation)
     
     db.session.add(current_user)
