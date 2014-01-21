@@ -483,12 +483,6 @@ def rec_received():
     if current_user.role ==1:
         return redirect('/index')
     
-    if current_user.all_recs_complete == 0:
-        return redirect('/rec_finalsubmission')
-    
-    if current_user.all_recs_complete == 1:
-        return redirect('/rec_index')
-
     return render_template("rec_received.html")
 
 ##### Begin code block for selector process
