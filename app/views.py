@@ -251,10 +251,19 @@ def staffview():
         return redirect('/rec_index')
     if current_user.role ==0:
         applicants = User.query.filter_by(role = 1).all()
-        finishedapplicants = User.query.filter_by(role = 1, application_complete =1).all()
-        total_apps = len(applicants)
+        finishedapplicants = User.query.filter_by(application_complete =1).all()
+        recommenders = User.query.all()
+	recommendations = Recommendation.query.all()
+	total_apps = len(applicants)
         complete_apps = len(finishedapplicants)
-        return render_template("who_is_done.html", finishedapplicants = finishedapplicants, total_apps = total_apps, complete_apps = complete_apps)
+        return render_template("who_is_done.html", finishedapplicants = finishedapplicants, total_apps = total_apps, complete_apps = complete_apps, recommendations = recommendations, recommenders = recommenders)
+
+
+@app.route('/view_recommendations/<student_id>', methods = ['GET'])
+@login_required
+def view_recommendations(student_id):
+	recs = Recommendation.query.filter_by(student_id = student_id).all()
+	return render_template("view_recommendations.html", recs = recs)
 
 @app.route('/received')
 @login_required

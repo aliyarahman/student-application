@@ -40,10 +40,7 @@
 			<li><b>Coding:</b> HTML: {{f.codingq1}} | CSS: {{f.codingq2}}  | Python code:{{f.codingq3}} | Another language code:{{f.codingq4}} | Python apps:{{f.codingq5}} | Another language apps: {{f.codingq6}}</li>
 		</ul>
 		<br>
-		<p><b>Recommenders</b>
-		<ul><li>{{f.rec1firstname}} {{f.rec1lastname}} ({{f.rec1email}})</li>
-			<li>{{f.rec2firstname}} {{f.rec2lastname}} ({{f.rec2email}})</li>
-			<li>{{f.rec3firstname}} {{f.rec3lastname}} ({{f.rec3email}})</li></ul></p>
+		<p><b><a href="{{ url_for('view_recommendations', student_id=f.user_id) }}">Click to read recommendations</a></b></p>
 	<a href="#{{f.user_id}}" class="show_hide{{f.user_id}}"><b>(Click here to hide this applicant's info)</b></a>
 	<br><br><br>
 	--------------------------------
