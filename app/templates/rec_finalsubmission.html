@@ -8,11 +8,8 @@
 
 			<br><br><br><br>
 			</div></div>
-			<a href="{{url_for('rec_received')}}">
-				<button class="advance" type="button">
-					<span id="finished">SUBMIT</span>Click to send us your recommendations.
-				</button>
-			</a>
-
+			<button class="advance" type="button" onClick="location.href ='{{ url_for('rec_received') }}'">
+				<span id="finished">SUBMIT</span>Click to send us your recommendations.
+			</button>
 
 {% endblock %}

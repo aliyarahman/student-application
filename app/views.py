@@ -447,8 +447,6 @@ def rec_form(student_id):#pass in the student this is for
 def rec_finalsubmission():
     if current_user.role ==1:
         return redirect('/index')
-    if current_user.all_recs_complete ==1:
-        return redirect('/rec_index')
 
     current_user.are_recs_complete()
 
