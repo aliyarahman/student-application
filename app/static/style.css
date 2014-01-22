@@ -128,7 +128,7 @@ input[type=checkbox]:checked + label:before { content:"\2713";color: #EBEBEB;	te
 .explain			{ text-align: left; margin-top: 40px;}
 
 
-#namebuttonholder		{	margin: 60px auto 0px auto; width: 900px;}
+#namebuttonholder		{	margin: 60px auto 0px auto; width: 600px;}
 .namebutton				{	display: block; width: 350px; height: 30px; background: #D2D2D2; 
 							text-align: center; padding: 15px; margin-left:auto; margin-right: auto; margin-bottom: 10px;
 							font-size: 24px; font-weight: bold; overflow: hidden;
@@ -136,6 +136,27 @@ input[type=checkbox]:checked + label:before { content:"\2713";color: #EBEBEB;	te
 .namebutton:hover		{background: #AFBF45}
 #namebuttonholder .details				{	background: #89952F; color: white; height: 60px; margin-top: 20px; padding-top:10px; padding-bottom: 5px;font-size: 20px; font-weight: normal}
 #namebuttonholder a		{	color: white; overflow: hidden; }
+
+#applicantbuttonholder { margin: 60px auto 0px auto; width: 750px; }
+.applicantbutton { display: block; height: 60px;
+							font-size: 24px; font-weight: bold; overflow: hidden; margin-bottom: 15px;
+							-webkit-transition: All 0.5s ease;-moz-transition: All 0.5s ease;-o-transition: All 0.5s ease;-ms-transition: All 0.5s ease; transition: All 0.5s ease;}
+
+.applicantbutton span { display: block; float: left; width: 150px; height: 30px; background: #D2D2D2; text-align: center;
+						margin-left:auto; margin-right: auto; margin-bottom: 10px; padding: 15px; color: #FFF;
+						-webkit-transition: All 0.5s ease;-moz-transition: All 0.5s ease;-o-transition: All 0.5s ease;-ms-transition: All 0.5s ease; transition: All 0.5s ease; }
+
+.applicantbutton:hover		{background: #AFBF45; color: #FFF; }
+.applicantbutton:hover span {background: #AFBF45}
+
+.applicantbutton.finished   {background: #AFBF45; color: #FFF; }
+.applicantbutton.finished span {background: #AFBF45}
+
+.namespacer { margin: 15px; background: none; float: right; }
+
+.evaluationtext .slidingDiv { background: #EEE; padding: 30px; }
+
+.evaluationtext .show_hide.selected { color: #AFBF45;}
 
 ul.flashes {
 	list-style-type: none;

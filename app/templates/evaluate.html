@@ -5,18 +5,18 @@
 <div class = "contentholder evaluationtext">
 <header class="formheader"><h2>Applicant {{f.user_id}}</h2></header>
 
-	<h3><a href="#2" class="show_hide2">Personal background (click to read)</h3></a>
-	<div class="slidingDiv2">
+	<h3><a href="#2" class="show_hide" data-target="slidingDiv-2">Personal background (click to read)</h3></a>
+	<div class="slidingDiv" id="slidingDiv-2">
 			<b>How did you hear about the Code for Progress application?:</b><br>{{f.appsource}}
 			<p><b>What languages do you speak, and how well do you speak them?: </b><br>{{f.languages}}</p>
 			<p><b>Our mission statement says that we want to train coders from communities "historically excluded" from the tech industry. Are you part of any of these communities, and if so what are they?: </b><br>{{f.culturalgroups}}</p>
 			<p><b>Are you working right now (that could be a job, more than one job, or being a caretaker for someone)? If so, tell us about it.: </b><br>{{f.working}}</p>
 			<p><b>Are you in a college or university program right now, or have you been in one in the past? If so, what certificate or degree did/will you receive, and will you still be in the program in April of next year?: </b><br>{{f.school}}</p>
-		<a href="#2" class="show_hide2"><b><br>(Click to hide this section)</b></a>		
+		<a href="#2" class="show_hide" data-target="slidingDiv-2"><b><br>(Click to hide this section)</b></a>		
 	</div>
 
-	<h3><a href="#3" class="show_hide3">Application questions (click to read)</h3></a>
-	<div class="slidingDiv3">
+	<h3><a href="#3" class="show_hide"  data-target="slidingDiv-3">Application questions (click to read)</h3></a>
+	<div class="slidingDiv"  id="slidingDiv-3">
 			<b>Shortanswer questions</b>
 				<p><b>1. What will this training help you to do in your community or organization that you can't already do?:</b> <br>{{f.Q01}}</p>
 				<p><b>2. What kind of employment do you plan to look for after you finish the residency for this program?:</b> <br>{{f.Q02}}</p>
@@ -39,11 +39,11 @@
 			</ul>
 			<br>
 
-	<a href="#3" class="show_hide3"><b>(Click to hide this section)</b></a>		
+	<a href="#3" class="show_hide" data-target="slidingDiv-3"><b>(Click to hide this section)</b></a>		
 	</div>
 
-	<h3><a href="#4" class="show_hide4">Recommendation 1 (click to read)</h3></a>
-	<div class="slidingDiv4">
+	<h3><a href="#4" class="show_hide" data-target="slidingDiv-4">Recommendation 1 (click to read)</h3></a>
+	<div class="slidingDiv"  id="slidingDiv-4">
 		Recommenders rated applicants along 6 dimensions and provided examples to explain their ratings. Where 1=low and 5=high, this recommender rated the applicant:
 			<ol>
 				<li><strong>Commitment to racial, gender, and/or economic justice</strong><br><b>({{rec1.recq1}})</b>: {{rec1.recq1ex}}</li>
@@ -61,12 +61,12 @@
 			</ol>
 		</p>
 	<br>
-	<a href="#4" class="show_hide4"><b>(Click to hide this section)</b></a>		
+	<a href="#4" class="show_hide" data-target="slidingDiv-4"><b>(Click to hide this section)</b></a>		
 	</div>
 
 
-	<h3><a href="#5" class="show_hide5">Recommendation 2 (click to read)</h3></a>
-	<div class="slidingDiv5">
+	<h3><a href="#5" class="show_hide" data-target="slidingDiv-5">Recommendation 2 (click to read)</h3></a>
+	<div class="slidingDiv"  id="slidingDiv-5">
 		Recommenders rated applicants along 6 dimensions and provided examples to explain their ratings. Where 1=low and 5=high, this recommender rated the applicant:
 			<ol>
 				<li><strong>Commitment to racial, gender, and/or economic justice</strong><br><b>({{rec2.recq1}})</b>: {{rec2.recq1ex}}</li>
@@ -84,12 +84,12 @@
 			</ol>
 		</p>
 	<br>
-	<a href="#5" class="show_hide5"><b>(Click to hide this section)</b></a>		
+	<a href="#5" class="show_hide" data-target="slidingDiv-5"><b>(Click to hide this section)</b></a>		
 	</div>
 
 
-	<h3><a href="#6" class="show_hide6">Recommendation 3 (click to read)</h3></a>
-	<div class="slidingDiv6">
+	<h3><a href="#6" class="show_hide" data-target="slidingDiv-6">Recommendation 3 (click to read)</h3></a>
+	<div class="slidingDiv"  id="slidingDiv-6">
 		Recommenders rated applicants along 6 dimensions and provided examples to explain their ratings. Where 1=low and 5=high, this recommender rated the applicant:
 			<ol>
 				<li><strong>Commitment to racial, gender, and/or economic justice</strong><br><b>({{rec3.recq1}})</b>: {{rec3.recq1ex}}</li>
@@ -107,12 +107,12 @@
 			</ol>
 		</p>
 	<br>
-	<a href="#6" class="show_hide6"><b>(Click to hide this section)</b></a>		
+	<a href="#6" class="show_hide" data-target="slidingDiv-6"><b>(Click to hide this section)</b></a>		
 	</div>
 
 
-	<h3><a href="#1" class="show_hide1 evaluatorqs">Evaluator questions (click to start answering)</h3></a>
-	<div class="slidingDiv1">
+	<h3><a href="#1" class="show_hide evaluatorqs" data-target="slidingDiv-1">Evaluator questions (click to start answering)</h3></a>
+	<div class="slidingDiv" id="slidingDiv-1">
 		<form action="" method="post" name="evaluate">
 				{{form.hidden_tag()}}
 				Please rate this applicant along four dimensions (in which <strong>1 = weakest, 6 = strongest</strong>):
@@ -124,7 +124,7 @@
 				<p class="explain">What is one question we should ask this applicant, if they are interviewed? </b> {{form.interview}}
 				<br>(optional) Please provide additional questions you would like asked or comments you would like considered. </b> {{form.additional}}
 
-		<a href="#1" class="show_hide1"><b>(Click to hide this section)</b></a></p>	
+		<a href="#1" class="show_hide" data-target="slidingDiv-1"><b>(Click to hide this section)</b></a></p>	
 	</div>
 
 

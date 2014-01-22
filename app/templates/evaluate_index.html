@@ -15,7 +15,7 @@
 		<div id="applicantbuttonholder">
 			{% for e in evals %}
 			<a href="{{ url_for('evaluate', student_id=e.student_id) }}">
-			<div class="applicantbutton {% if e.is_evaluation_complete() %}finished{% endif %}">Applicant {{e.student_id}}<div class="namespacer"></div><div class="namespacer">
+			<div class="applicantbutton {% if e.is_evaluation_complete() %}finished{% endif %}"><span>Applicant {{e.student_id}}</span><div class="namespacer"></div><div class="namespacer">
 			{% if e.is_evaluation_complete()==False %} Begin evaluation
 			{% else %} {{e.critical }} | {{e.mission}} | {{e.community}} | {{e.inspire}} | {{e.yesno}}
 			{% endif %}
