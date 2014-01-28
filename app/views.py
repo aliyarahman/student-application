@@ -575,7 +575,7 @@ def eval_forgot():
 @login_required
 def eval_logout():
     logout_user()
-    return redirect("http://www.codeforprogress.org")
+    return redirect("/eval_login")
 
 @app.route('/eval_received')
 @login_required
