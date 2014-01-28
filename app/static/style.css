@@ -74,9 +74,11 @@ a					{text-decoration: none; color: #686868}
 .advance			{   text-align: left; float: right; 
 						height: 70px; width: 360px; border: 1px solid #AFBF45; color: #686868; padding: 6px 25px 10px 25px;
 						box-shadow:0 0 1px #AFBF45;-moz-box-shadow:0 0 1px #AFBF45;-webkit-box-shadow:0 0 1px #AFBF45;}
+
 .evalsave			{   text-align: left; float: right; 
 						height: 50px; width: 350px; border: 1px solid #AFBF45; color: #686868; padding: 0px;
 						box-shadow:0 0 1px #AFBF45;-moz-box-shadow:0 0 1px #AFBF45;-webkit-box-shadow:0 0 1px #AFBF45;}
+
 #finished			{	display:block; font-size: 36px; font-weight: 800;}
 
 
@@ -173,3 +175,9 @@ ul.flashes li {
 }
 
 #username				{ display: inline-block; margin-left: 40px;}
+
+.evalsave			{   text-align: left; float: right; 
+						height: 50px; width: 350px; border: 1px solid #AFBF45; color: #686868; padding: 0px;
+						box-shadow:0 0 1px #AFBF45;-moz-box-shadow:0 0 1px #AFBF45;-webkit-box-shadow:0 0 1px #AFBF45;}
+
+.evalsave h2		{font-size: 20px; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }

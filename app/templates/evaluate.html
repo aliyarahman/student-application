@@ -135,14 +135,16 @@
 				<p><br>Would you recommend this applicant for the 2014 class? {{form.yesno}}</p> 
 				<p class="explain">What is one question we should ask this applicant, if they are interviewed? </b> {{form.interview}}
 				<br>(optional) Please provide additional questions you would like asked or comments you would like considered. </b> {{form.additional}}
-				<button type="submit" class="evalsave" onClick="location.href ='{{ url_for('evaluate_index') }}'"><h2>Save these answers</h2></button>	
+				
+				<button type="submit" class="evalsave" onClick="location.href ='{{ url_for('evaluate_index') }}'"><h2>Save these answers</h2></button>
+				
 		<a href="#1" class="show_hide" data-target="slidingDiv-1"><b>(Click to hide this section)</b></a></p>
 	</div>
 
 
 <br><br><br></div>
 </div>
-	<br><br><br><button type="button" class="advance" onClick="location.href='{{url_for('evaluate_index') }}'"><span id="evalsubmit"><h2 class="evalsubmit">Return to main menu</h2></span></button>
+	<br><br><br><button type="button" class="advance" onClick="location.href='{{url_for('evaluate_index') }}'"><h2>Return to main menu</h2></button>
 
 	</form>
 {% endblock %}
