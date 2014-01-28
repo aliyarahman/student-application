@@ -55,8 +55,8 @@ pycups#==1.9.59
 pycurl#==7.19.0
 pyserial#==2.5
 pysmbc#==1.0.10
-python-apt#==0.8.0ubuntu9
-python-debian#==0.1.20ubuntu2
+#python-apt#==0.8.0ubuntu9
+#python-debian#==0.1.20ubuntu2
 #python-virtkey#==0.60.0
 pyxdg#==0.19
 reportlab#==2.5

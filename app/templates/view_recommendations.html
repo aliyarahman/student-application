@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class = "contentholder evaluationtext">
+<h2 class="formheader">Recommendations for this Applicant</h2>
+{% for r in recs %}
+<div><h3>Recommendation from Recommender {{r.recommender_id}}</h3></div>
+	<div>
+	Recommenders rated applicants along 6 dimensions and provided examples to explain their ratings. Where 1=low and 5=high, this recommender rated the applicant:
+		<ol>
+			<li><strong>Commitment to racial, gender, and/or economic justice</strong><br><b>({{r.recq1}})</b>: {{r.recq1ex}}</li>
+			<li><strong>Creativity in problem solving</strong><br><b>({{r.recq2}})</b>: {{r.recq2ex}}</li>
+			<li><strong>Patience in working through obstacles</strong><br><b>({{r.recq3}})</b>: {{r.recq3ex}}</li>
+			<li><strong>Demonstrated interest in teaching and mentoring others</strong><br><b>({{r.recq4}})</b>: {{r.recq4ex}}</li>
+			<li><strong>Curiosity around how things work (likes to take things apart, dig into the structure of groups or organizations, find out what "makes people tick")</strong><br><b>({{r.recq5}})</b>: {{r.recq5ex}}</li>
+			<li><strong>Demonstrated willingness to ask for help:</strong><br><b>({{r.recq6}})</b>: {{r.recq6ex}}</li>
+		</ol>
+		
+		<ol start="7">
+			<li><strong>We are committed to our students as professionals - and we also want to support them as members of our community. If they are accepted to the program, what is one specific challenge faced by this applicant that we should keep in mind?: </strong> <br>{{r.recq7}}</li>
+			<li><strong>What specific things can we do to best support this applicant, if they are accepted to the program?</strong><br>{{r.recq8}}</li>
+		</ol>
+<br><br>
+	</div>
+</div>
+{% endfor %}
+
+{% endblock %}
