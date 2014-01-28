@@ -225,7 +225,7 @@ class Evaluation(db.Model):
     evaluation_complete = db.Column(db.Integer, default = 0)
 
     def is_evaluation_complete(self):
-        if self.critical and self.mission and self.community and self.inspire and self.yesno and self.interview and self.additional:
+        if self.critical and self.mission and self.community and self.inspire and self.yesno and self.interview:
             self.evaluation_complete = 1
             db.session.add(self)
             db.session.commit()
