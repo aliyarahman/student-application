@@ -145,7 +145,7 @@ input[type=checkbox]:checked + label:before { content:"\2713";color: #EBEBEB;	te
 							font-size: 24px; font-weight: bold; overflow: hidden; margin-bottom: 15px;
 							-webkit-transition: All 0.5s ease;-moz-transition: All 0.5s ease;-o-transition: All 0.5s ease;-ms-transition: All 0.5s ease; transition: All 0.5s ease;}
 
-.applicantbutton span { display: block; float: left; width: 150px; height: 30px; background: #D2D2D2; text-align: center;
+.applicantbutton span { display: block; float: left; width: 160px; height: 30px; background: #D2D2D2; text-align: center; overflow: hidden;
 						margin-left:auto; margin-right: auto; margin-bottom: 10px; padding: 15px; color: #FFF;
 						-webkit-transition: All 0.5s ease;-moz-transition: All 0.5s ease;-o-transition: All 0.5s ease;-ms-transition: All 0.5s ease; transition: All 0.5s ease; }
 
@@ -155,11 +155,11 @@ input[type=checkbox]:checked + label:before { content:"\2713";color: #EBEBEB;	te
 .applicantbutton.finished   {background: #AFBF45; color: #FFF; }
 .applicantbutton.finished span {background: #AFBF45}
 
-.namespacer { margin: 15px; background: none; float: right; }
+.namespacer { margin: 15px; background: none; float: right; color: white }
 
 .evaluationtext .slidingDiv { background: #EEE; padding: 30px; }
 
-.evaluationtext .show_hide.selected { color: #AFBF45;}
+.evaluationtext .show_hide.selected, .evaluationtitle { color: #AFBF45;}
 
 ul.flashes {
 	list-style-type: none;

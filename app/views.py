@@ -39,6 +39,8 @@ def index():
         return redirect('/rec_index')
     if current_user.role ==0:
         return redirect('/staffview')
+    if current_user.role ==4:
+        return redirect('/evaluate_index')
     recs = []
     if current_user.application_complete ==1:
         recs.append(User.query.filter_by(email = current_user.rec1email).first())
@@ -394,6 +396,8 @@ def rec_login():
 def rec_index():
     if current_user.role ==1:
         return redirect('/index')
+    if current_user.role ==4:
+        return redirect('/evaluate_index')
     
     students = []
     recs =[]
